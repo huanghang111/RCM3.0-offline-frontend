@@ -1,0 +1,14 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary=".boundary-container" id="catalog-item">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <mat-card *ngIf="catalogName" class="point-card">
+        <a (click)="showCatalogInfo()">{{catalogName}}</a>
+    </mat-card>
+
+</div>

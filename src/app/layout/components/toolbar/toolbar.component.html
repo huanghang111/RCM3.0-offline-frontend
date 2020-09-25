@@ -1,0 +1,72 @@
+<mat-toolbar class="p-0 mat-elevation-z1">
+
+    <!-- <mat-toolbar-row fxFill fxLayoutAlign="space-between space-between"> -->
+    <div fxFill fxFlex fxLayout="row" fxLayoutAlign="space-between space-between">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div *ngIf="horizontalNavbar && authStore.getUsername()" class="module-button">
+                <button (click)="menuClick()" class="btn btn-navigation" type="button"></button>
+                <div class="button-content">
+                    <span [ngClass]="{'upper-line-active': isActive}" class="upper-line custom-span"></span>
+                    <span [ngClass]="{'middle-line-active': isActive}" class="middle-line custom-span"></span>
+                    <span [ngClass]="{'bottom-line-active': isActive}" class="bottom-line custom-span"></span>
+                </div>
+            </div>
+            <div *ngIf="horizontalNavbar">
+                <div class="logo ml-16" (click)="navigateHome()">
+                    <img class="logo-icon" src="assets/images/logos/rexroth.svg">
+                    <!--Comment the following line yangxidong 20200819-->
+                    <!--<img class="logo-icon" src="assets/images/logos/Customerlogo_color.png">-->
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="toolbar-separator"></div>
+
+            <button *ngIf="getUsername()" [matMenuTriggerFor]="userMenu" class="user-button" mat-button>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <!--modify by yangxidong 20200819-->
+                    <img class="avatar mr-0 mr-sm-16"
+                         src="assets/images/avatars/Rexroth-Logo_RGB_S.jpg">
+                    <!--<img *ngIf="userName === 'rexroth'" class="avatar mr-0 mr-sm-16"
+                         src="assets/images/avatars/Rexroth-Logo_RGB_S.jpg">
+                    <img *ngIf="userName !== 'rexroth'" class="avatar mr-0 mr-sm-16"
+                         src="assets/images/avatars/Customerlogo.png">-->
+                    <span class="username mr-12" fxHide fxShow.gt-sm>{{authStore.getUsername()}}</span>
+                    <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+                </div>
+            </button>
+
+            <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+
+                <button (click)="logout()" class="" mat-menu-item>
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>{{ 'LOGIN.LOGOUT' | translate }}</span>
+                </button>
+
+            </mat-menu>
+
+            <div class="toolbar-separator"></div>
+
+            <button [matMenuTriggerFor]="langMenu" class="lang-button" mat-button>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <span class="username mr-12" fxHide fxShow.gt-sm>{{ langShowed }}</span>
+                    <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+                </div>
+            </button>
+
+            <mat-menu #langMenu="matMenu" [overlapTrigger]="false">
+                <div *ngFor="let lang of languages">
+                    <button (click)="setLanguage(lang)" mat-menu-item>
+                        <span>{{lang.title}} </span>
+                    </button>
+                </div>
+
+            </mat-menu>
+
+
+        </div>
+    </div>
+
+</mat-toolbar>

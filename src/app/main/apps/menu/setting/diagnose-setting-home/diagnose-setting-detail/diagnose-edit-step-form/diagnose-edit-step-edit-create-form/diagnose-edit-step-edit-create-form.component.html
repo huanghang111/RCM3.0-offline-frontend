@@ -1,0 +1,72 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <form [formGroup]="diagnoseStepForm">
+            <div>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>{{'CONFIGURATION.Diagnose.StepForm.Des' | translate}}</mat-label>
+                        <textarea cols="30" formControlName="description" matInput name="description"
+                                  rows="5"></textarea>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-evenly start">
+                    <div fxFlex>
+                        <input #inputPictures (change)="onFileSelected($event)" accept=".gif,.jpg,.jpeg,.png" hidden
+                               multiple type="file"/>
+                        <div class="action-add-picture">
+                            <mat-icon (click)="inputPictures.click()" class="add-document-icon">add_circle_outline
+                            </mat-icon>
+                            <span (click)="inputPictures.click()"
+                                  style="color: #3aa2d0; cursor: pointer;">{{'CONFIGURATION.Diagnose.StepForm.AddPic' | translate}}</span>
+                        </div>
+                        <ul *ngIf="diagnosePictures.length > 0 || pictureUploads.length > 0" class="document-list">
+                            <!-- Show pictures that saved in DB -->
+                            <li *ngFor="let item of diagnosePictures; let i = index">
+                                <div *ngIf="item.contentBin" class="picture-showing">
+                                    <img class="responsive" src="data:image/jpeg;base64,{{item.contentBin}}">
+                                </div>
+                                <!-- <span style="word-wrap: break-word;">{{item.name}}</span> -->
+                                <mat-icon (click)="removePicture(i)" class="remove-document-icon">delete</mat-icon>
+                            </li>
+                            <!-- Show pictures that have just uploaded -->
+                            <li *ngFor="let que of pictureUploads; let j = index;">
+                                <div *ngIf="que.data | async as file; else loading" class="picture-showing">
+                                    <img src="{{que.isImage ? file: '../../content/images/file-default-icon.png'}}"
+                                         class="responsive">
+                                </div>
+                                <ng-template #loading></ng-template>
+                                <!-- <span style="word-wrap: break-word;">{{que.name}}</span> -->
+                                <mat-icon (click)="removeUploadPicture(j)" class="remove-document-icon">delete
+                                </mat-icon>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close dialog" class="mr-8" color="teriary" mat-raised-button
+                title="{{'ACTION.Close' | translate}}">
+            {{'ACTION.Close' | translate}}
+        </button>
+        <button (click)="ngAction()" *ngIf="action !== 'edit'" [disabled]="diagnoseStepForm.invalid" aria-label="CREATE"
+                class="save-button" color="primary" mat-raised-button title="{{'ACTION.Add' | translate}}">
+            {{'ACTION.Add' | translate}}
+        </button>
+        <button (click)="ngAction()" *ngIf="action === 'edit'" [disabled]="diagnoseStepForm.invalid" aria-label="SAVE"
+                class="save-button" color="primary" mat-raised-button title="{{'ACTION.Save' | translate}}">
+            {{'ACTION.Save' | translate}}
+        </button>
+    </div>
+</div>

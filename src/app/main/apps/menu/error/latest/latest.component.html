@@ -1,0 +1,95 @@
+<div class="page-layout simple page-layout-custom" div id="error-latest">
+    <h2 class="title">{{ 'ERROR.LATEST.TITLE' | translate }}</h2>
+
+    <div fxLayout="row">
+
+        <mat-accordion multi="true" style="width: 100%">
+            <div class="select-all">
+                <mat-checkbox (change)="onCheckAll($event)" [(ngModel)]="checkedAll">{{selectAllText}}
+                    {{'ERROR.LATEST.All' | translate}}
+                </mat-checkbox>
+            </div>
+            <mat-expansion-panel (click)="panelClick(dataSource.signalError)"
+                *ngFor="let dataSource of dataSourceArray | paginate: { id: 'latestTable', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }; index as i">
+                <mat-expansion-panel-header>
+                    <mat-checkbox (change)="onCheckItem($event, dataSource.signalName, dataSource.signalError)"
+                                  (click)="$event.stopPropagation();"
+                                  [(ngModel)]="checkedItems[i].checked"></mat-checkbox>
+                    <h4 class="title-of-checkbox">{{dataSource.signalName}}
+                        - {{dataSource.signalError[0].threshold.errorMessages}} (count ={{dataSource.count}})</h4>
+                    <div *ngIf="isAcknowledge" class="button-right">
+                        <button (click)="acknowledge(dataSource.signalError, dataSource.signalError[0].threshold.level)"
+                                class="custom-acknowledge" color="primary" mat-raised-button
+                                title="{{ 'ACTION.Acknowledge' | translate }}">{{ 'ACTION.Acknowledge' | translate }}
+                        </button>
+                    </div>
+                </mat-expansion-panel-header>
+
+                <table [dataSource]="dataSource.signalError" class="mat-elevation-z8" mat-table width="100%">
+
+                    <ng-container matColumnDef="sigIDData">
+                        <th *matHeaderCellDef mat-header-cell> {{ 'ERROR.LATEST.Table.id' | translate }} </th>
+                        <td *matCellDef="let element" mat-cell style="width: 20%"> {{element.id}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="sigName">
+                        <th *matHeaderCellDef mat-header-cell> {{ 'ERROR.LATEST.Table.name' | translate }} </th>
+                        <td *matCellDef="let element" mat-cell style="width: 10%"> {{element.name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="value">
+                        <th *matHeaderCellDef mat-header-cell> {{ 'ERROR.LATEST.Table.value' | translate }} </th>
+                        <td *matCellDef="let element" mat-cell style="width: 15%">
+                            {{element.threshold.level !== "" ? element.values : element.threshold.values}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="threshold">
+                        <th *matHeaderCellDef mat-header-cell> {{ 'ERROR.LATEST.Table.threshold' | translate }} </th>
+                        <td *matCellDef="let element" mat-cell style="width: 15%">
+                            {{element.threshold.values}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="timestamp">
+                        <th *matHeaderCellDef mat-header-cell> {{ 'ERROR.LATEST.Table.timestamp' | translate }} </th>
+                        <td *matCellDef="let element" mat-cell style="width: 25%"> {{convertDate(element.timestamp)}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="relatedData">
+                        <th *matHeaderCellDef mat-header-cell> {{ 'ERROR.LATEST.Table.related' | translate }} </th>
+                        <td *matCellDef="let element" mat-cell>
+                            <button (click)="openRelatedData(dataSource.signalId, element)" class="button-related"
+                                    color="secondary" mat-raised-button
+                                    title="{{ 'ERROR.LATEST.Table.related' | translate }}">{{ 'ERROR.LATEST.Table.related' | translate }}
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                </table>
+
+            </mat-expansion-panel>
+            <div class="rcm-pagination" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <span>{{ 'ACTION.RESULTS_PER_PAGE' | translate }}: </span>
+                    <ul class="rcm-pagination-list">
+                        <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                        <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                        <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                        <li (click)="onItemPerPage(100)" [class.current]="itemsPerPage==100"><a>100</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true" [nextLabel]="''"
+                                         [previousLabel]="''" id="latestTable"></pagination-controls>
+                </div>
+            </div>
+            <div class="button-export">
+                <button (click)="onExport()" aria-label="Export" class="custom-export" color="dark" mat-raised-button
+                        type="button" title="{{ 'ACTION.Export' | translate }}">{{ 'ACTION.Export' | translate }}
+                </button>
+            </div>
+        </mat-accordion>
+    </div>
+
+</div>

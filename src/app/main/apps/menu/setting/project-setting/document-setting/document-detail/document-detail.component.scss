@@ -1,0 +1,65 @@
+.card {
+    width: 100%;
+    height: auto;
+    border: 2px solid #bcccd6;
+}
+
+.header {
+    max-width: 320px;
+}
+
+.img-custom {
+    width: 320px;
+    height: 198px;
+}
+
+.button-edit {
+    float: right;
+}
+
+.custom-h4 {
+    margin: 10px 0 0 0;
+    width: 300px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.img-area {
+    margin-top: 15px !important;
+    max-width: 320px;
+    height: 198px;
+}
+
+.information {
+    width: 100%;
+}
+
+.dashboard-area {
+    margin: 10px 0 0 0;
+}
+
+mat-card-actions {
+    margin-left: 0px;
+    margin-right: -8px;
+    padding: 8px 0;
+}
+
+.title {
+    width: 100%;
+    justify-content: flex-start;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.action {
+    justify-content: flex-end;
+}
+
+.button-list {
+    line-height: 35px !important;
+    height: 35px;
+    padding: 0 0 !important;
+    min-width: 38px !important;
+}

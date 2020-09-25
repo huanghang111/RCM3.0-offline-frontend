@@ -1,0 +1,13 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag
+     cdkDragBoundary=".boundary-container" style="width: max-content;min-width: 80px">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <div [innerHTML]="textContent">
+    </div>
+</div>

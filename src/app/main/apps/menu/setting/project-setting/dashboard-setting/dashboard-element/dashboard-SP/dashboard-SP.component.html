@@ -1,0 +1,13 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary=".boundary-container" style="width: max-content">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <app-signal-point-dialog *ngIf="currentPoint" [data]="currentPoint"
+                             style="width: 90% !important; height: auto; vertical-align: central;">
+    </app-signal-point-dialog>
+</div>

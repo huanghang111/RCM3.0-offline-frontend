@@ -1,0 +1,35 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <div fxLayout="column">
+            <mat-card *ngFor="let step of diagnoseSteps; let i = index;" class="custom-mat-card">
+                <mat-card-header>
+                    <h2 class="title">Step {{i + 1}}</h2>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="info-dashboard-area" fxLayout="row">
+                        <div class="information">
+                            <h4 class="custom-h4">{{step.description}}</h4>
+                        </div>
+                    </div>
+                    <div *ngFor="let picture of step.diagnosePictures">
+                        <div class="content">
+                            <img class="img-screenshot" src="data:image/jpeg;base64,{{picture.contentBin}}"/>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <div *ngIf="diagnoseSteps.length === 0" style="font-size: 20px;
+            margin-bottom: 20px;">No diagnose steps data
+            </div>
+        </div>
+    </div>
+</div>

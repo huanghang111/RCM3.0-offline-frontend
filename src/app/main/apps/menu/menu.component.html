@@ -1,0 +1,30 @@
+<div class="page-layout-custom" id="sub-menu" *ngIf="authStore.getProjectId()">
+    <button (click)="navigate('apps/setting/dashboard')" mat-button>{{initProjectName()}}</button>
+    <button [matMenuTriggerFor]="error" mat-button>{{ 'MENU.Error.Error' | translate}}</button>
+    <button [matMenuTriggerFor]="signal" mat-button>{{ 'MENU.Signal.Signal' | translate}}</button>
+    <button (click)="navigate('apps/diagnose')" mat-button>{{ 'MENU.Diagnose' | translate}}</button>
+    <button *ngIf="!authStore.isUser();" [matMenuTriggerFor]="setting"
+        mat-button>{{ 'MENU.Config.Configuration' | translate}}</button>
+
+    <mat-menu #error="matMenu">
+        <button (click)="navigate('apps/error/latest')" mat-menu-item>{{ 'MENU.Error.Latest' | translate}}</button>
+        <button (click)="navigate('apps/error/history')" mat-menu-item>{{ 'MENU.Error.History' | translate}}</button>
+    </mat-menu>
+
+    <mat-menu #signal="matMenu">
+        <button (click)="navigate('apps/signal/signalPoint')"
+            mat-menu-item>{{ 'MENU.Signal.Points' | translate}}</button>
+        <button (click)="navigate('apps/signal/intensiveSignal')"
+            mat-menu-item>{{ 'MENU.Signal.Intensive' | translate}}</button>
+    </mat-menu>
+
+    <mat-menu #setting="matMenu">
+        <!-- <button mat-menu-item (click)="navigate('apps/setting/project-setting')" *ngIf="_authStore.isRexroth();">Project</button> -->
+        <button (click)="navigate('apps/setting/signal')" *ngIf="authStore.isRexroth();"
+            mat-menu-item>{{ 'MENU.Config.Signal' | translate}}</button>
+        <button (click)="navigate('apps/setting/diagnose-setting')"
+            mat-menu-item>{{ 'MENU.Config.Diagnose' | translate}}</button>
+        <button (click)="navigate('apps/setting/export-data')"
+            mat-menu-item>{{ 'MENU.Config.Export' | translate}}</button>
+    </mat-menu>
+</div>

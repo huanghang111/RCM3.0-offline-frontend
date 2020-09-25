@@ -1,0 +1,13 @@
+<div class="page-layout simple page-layout-custom" id="dashboard">
+    <div>
+        <app-common-dashboard *ngFor="let dashboard of dashboards" [dashboard]="dashboard" [settingMode]="false">
+        </app-common-dashboard>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end start" *ngIf="dashboards.length > 0" style="margin-bottom: 10px;">
+        <button (click)="startSlide()" class="dashboard-button" color="secondary" mat-raised-button
+                title="{{'ACTION.Start' | translate}}">
+            <span>{{'ACTION.Start' | translate}}</span>&nbsp;
+            <mat-icon>play_circle_filled</mat-icon>
+        </button>
+    </div>
+</div>

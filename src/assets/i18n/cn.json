@@ -1,0 +1,432 @@
+{
+    "LOGIN": {
+        "LOGIN": "登录",
+        "LOGOUT": "登出",
+        "TITLE": "欢迎使用远程状态监控系统",
+        "USERNAME": "用户名",
+        "PASSWORD": "密码",
+        "URequired": "请输入用户名",
+        "UMinLength": "用户名最短不能少于1个字符",
+        "UMaxLength": "用户名最长不能超过50个字符",
+        "PRequired": "请输入密码",
+        "PMinLength": "密码长度不能少于1个字符",
+        "PMaxLength": "密码长度不能超过100个字符",
+        "PConfirmRequire": "请进行密码确认",
+        "PMustMatch": "两次密码必须一致",
+        "UPWrong": "用户名或密码错误!"
+    },
+    "NAV": {
+        "Home": "主页",
+        "Log": "日志",
+        "User": "用户管理",
+        "Setting": "设置"
+    },
+    "MENU": {
+        "Error": {
+            "Error": "报警",
+            "Latest": "待确认报警",
+            "History": "历史报警"
+        },
+        "Signal": {
+            "Signal": "信号",
+            "Points": "信号点",
+            "Intensive": "高密度信号"
+        },
+        "Diagnose": "诊断",
+        "Config": {
+            "Configuration": "配置",
+            "Signal": "信号",
+            "Diagnose": "诊断",
+            "Export": "导出"
+        }
+    },
+    "USER": {
+        "USER": "用户管理",
+        "Table": {
+            "Username": "用户名",
+            "FullName": "全称",
+            "Project": "项目",
+            "Operation": "操作"
+        },
+        "Form": {
+            "Username": "用户名",
+            "FullName": "全称",
+            "Project": "项目",
+            "Password": "密码",
+            "Confirm": "密码 (确认)"
+        }
+    },
+    "LOG": {
+        "LOG": "日志",
+        "Filterlog": "过滤日志信息",
+        "DateFrom": "开始日期",
+        "DateTo": "结束日期",
+        "DatePlaceholder": "选择日期",
+        "Usertype": "用户类型",
+        "Operation": "操作",
+        "Keywords": "关键字",
+        "Search": "搜索???",
+        "NoDataMess": "未找到对应数据",
+        "All": "全",
+        "Table": {
+            "Time": "按时间分组",
+            "Username": "用户名",
+            "Operation": "操作",
+            "Message": "消息"
+        }
+    },
+    "ERROR": {
+        "LATEST": {
+            "TITLE": "最新报警信息",
+            "Select": "选定",
+            "Unselect": "取消选定",
+            "All": "全",
+            "Table": {
+                "id": "ID",
+                "name": "信号名称",
+                "value": "值",
+                "threshold": "阈值",
+                "timestamp": "时间戳",
+                "related": "相关数据"
+            }
+        },
+        "HISTORY": {
+            "TITLE": "筛选",
+            "DateFrom": "开始日期",
+            "DateTo": "结束日期",
+            "DatePlaceholder": "选择日期",
+            "SignalLabel": "信号ID",
+            "GroupLabel": "分组",
+            "GroupSignal": "按信号分组",
+            "GroupTime": "按时间分组",
+            "NoData": "未找到对应数据",
+            "TableHistory": {
+                "SELECT": "选定",
+                "ID": "信号ID",
+                "NAME": "信号名称",
+                "COUNT": "发生次数",
+                "ACTION": "行动"
+            },
+            "TableHistoryTime": {
+                "id": "信号ID",
+                "name": "信号名称",
+                "value": "值",
+                "threshold": "阈值",
+                "timestamp": "时间戳"
+            },
+            "TableSignal": {
+                "NAME": "信号名称",
+                "Value": "值",
+                "THRESHOLD": "阈值",
+                "TIMESTAMP": "时间戳",
+                "ACK": "报警确认"
+            }
+        }
+    },
+    "SIGNAL": {
+        "Points": {
+            "Title": "信号点",
+            "NoData": "没有可用数据",
+            "Info": {
+                "Info": "信号点信息",
+                "Description": "描述",
+                "Documents": "关联文档",
+                "Tab": {
+                    "His": "历史数据",
+                    "Pic": "图片",
+                    "Threshold": "阈值",
+                    "From": "开始日期",
+                    "To": "结束日期"
+                },
+                "NoData": "未找到相关图片"
+            }
+        },
+        "Intensive": {
+            "Title": "高密度信号",
+            "Info": {
+                "Info": "信号点信息",
+                "Trigger": "触发方式",
+                "Filter": "筛选",
+                "From": "开始日期",
+                "To": "结束日期",
+                "Timestamp": "选择时间戳"
+            }
+        }
+    },
+    "DIAGNOSE": {
+        "Diagnose": "诊断",
+        "Table": {
+            "Name": "故障名称",
+            "Times": "发生次数",
+            "Last": "上次发生时间",
+            "Act": "操作"
+        },
+        "Detail": {
+            "Detail": "详情",
+            "Table": {
+                "TIME": "时间",
+                "OUT": "输出计算",
+                "MEASUREMENT": "操作",
+                "RELATED": "相关数据"
+            }
+        },
+        "Calc": {
+            "Calculation": "计算方式",
+            "Formular": "配方师"
+        }
+    },
+    "CONFIGURATION": {
+        "Signal": {
+            "Import": "信号导入",
+            "ImportMessage": "仅支持Excel类型文件!",
+            "File": "请选择文件",
+            "Title": "信号",
+            "Soft_delete": "移除ID对应的信号",
+            "Calculation": {
+                "LabelCalculation": "新建公式",
+                "Normal": "新建标准信号",
+                "Fault": "新建诊断触发方式信号",
+                "Diagnose": "新建诊断ID信号",
+                "NewNormal": "新标准信号",
+                "NewFault": "新诊断触发方式信号",
+                "NewDiagnose": "新诊断"
+            },
+            "Table": {
+                "CMD": "CMD",
+                "ID": "信号ID",
+                "Name": "信号名称",
+                "Des": "描述信息",
+                "Type": "信号类型",
+                "Act": "操作"
+            },
+            "DiaglogEdit": {
+                "Edit": "编辑信号",
+                "Create": "新建信号",
+                "CreateCata": "新建产品目录项",
+                "ID": "ID",
+                "SignalID": "信号ID",
+                "SignalName": "信号名称",
+                "Type": "数据类型",
+                "Des": "描述信息",
+                "Unit": "单位",
+                "Threshold": "阈值",
+                "TooLow": "极小值",
+                "Low": "小",
+                "High": "大",
+                "TooHigh": "极大值",
+                "Digit": "小数精度",
+                "ErrorMess": "报警信息",
+                "RelatedButton": "相关数据",
+                "DisTrue": "显示值(True)",
+                "DisFalse": "显示值(False)",
+                "BrowsePic": "选择图片..",
+                "AddDoc": "添加文档",
+                "Trigger": "触发方式",
+                "Manual": "手动",
+                "Automatic": "自动",
+                "Hour": "时",
+                "Minute": "分",
+                "Second": "秒",
+                "Tag": "标记",
+                "LinkAct": "添加链接",
+                "Link": "链接",
+                "Doc": "添加文档",
+                "EnterText": "在这里输入文字...",
+                "PLCID": "PLC ID",
+                "CMD": "CMD",
+                "MODE": "模式",
+                "INTERVAL": "间隔",
+                "DATASIZE": "资料大小 (个字节)",
+                "DATALEN": "资料长度",
+                "TOTALLEN": "总长度"
+            },
+            "HealthyForm": {
+                "Title": "健康度信号",
+                "Note": "请选择一个信号作为健康度信号",
+                "SignalLabel": "信号名称"
+            },
+            "SignalCal": {
+                "Normal": "新建标准公式",
+                "Fault": "新建故障公式",
+                "Diagnose": "新建诊断公式",
+                "Signal1": "信号1",
+                "Signal1Mes": "请选择信号1",
+                "Signal2": "信号2",
+                "Signal2Mes": "请选择信号2",
+                "Method1": "方法1",
+                "Method1Mes": "请选择方法1",
+                "Method2": "方法2",
+                "Method2Mes": "请选择方法2",
+                "Out": "输出信号",
+                "OutputMes": "请选择输出信号",
+                "NewSig": "新增信号名称",
+                "NewSigMes": "请输入新增信号名称",
+                "NewSigMax": "信号名称最长100个字符"
+            }
+        },
+        "Diagnose": {
+            "Add": "新建诊断",
+            "EditD": "编辑诊断",
+            "AddStep": "新建步骤",
+            "EditStep": "编辑步骤",
+            "Table": {
+                "ID": "信号ID",
+                "Name": "故障名称",
+                "DES": "故障描述",
+                "ACT": "操作",
+                "Edit": "编辑诊断"
+            },
+            "TableDiagnose": {
+                "Out": "公式输出",
+                "DES": "描述信息",
+                "OPERATION": "操作"
+            },
+            "ECForm": {
+                "EditTitle": "编辑诊断",
+                "CreateTitle": "新建诊断",
+                "Out": "公式输出",
+                "Des": "描述信息"
+            },
+            "StepForm": {
+                "Title": "请编辑诊断步骤,该步骤对应DiagnoseID值为:",
+                "Step": "步骤",
+                "AddTitle": "添加步骤",
+                "EditTitle": "编辑步骤",
+                "Des": "描述信息",
+                "AddPic": "添加图片",
+                "DeleteHeader": "删除该DiagnoseID对应的诊断步骤"
+            },
+            "DeleteForm": {
+                "Title": "删除该ID对应的诊断实例"
+            }
+        },
+        "Export": {
+            "Title": "信号导出",
+            "SignalLabel": "选择信号",
+            "From": "开始日期",
+            "To": "结束日期"
+        }
+    },
+    "PROJECT": {
+        "ECForm": {
+            "TitleEdit": "编辑项目",
+            "TitleCreate": "新建项目",
+            "DeleteHeader": " 删除项目",
+            "Name": "项目名称",
+            "Valid": "有效期",
+            "Address": "地址",
+            "Image": "封面图片",
+            "Browse": "选择图片.."
+        },
+        "Dashboard": {
+            "SlideAct": "添加至全屏演示",
+            "ViewDash": "查看看板",
+            "EditDash": "编辑看板",
+            "DeleteTitle": "删除该ID对应的看板",
+            "Time": "时间",
+            "Sec": "秒",
+            "Name": "看板名称",
+            "NameMes": "请输入看板名称",
+            "titleCreate": "创建看板",
+            "Elements": {
+                "Elements": "看板元素",
+                "Text": "文本",
+                "SigPoint": "信号点",
+                "Document": "文档链接",
+                "Catalog": {
+                    "Catalog": "产品目录项",
+                    "CatalogName": "项名称",
+                    "CatalogDes": "描述",
+                    "CatalogTag": "标签",
+                    "CatalogDocs": "文档",
+                    "CatalogLinks": "链接",
+                    "plcHolderCatalogName": "产品目录名称",
+                    "plcHolderCatalogDes": "描述",
+                    "plcHolderCatalogTag": "标签",
+                    "Link": "链接"
+                },
+                "Picture": "图片",
+                "ChartHis": "历史折线图",
+                "ChartIntensive": "高密度折线图",
+                "ChartReal": "实时折线图",
+                "ChartBar": "柱状图",
+                "Schematic": "原理图",
+                "PieChart": {
+                    "Opento": "转到待确认报警页"
+                }
+            },
+            "Mes": {
+                "plcHolderText": "请输入文本信息",
+                "plcHolderSigPoint": "请选择信号",
+                "plcHolderDate": "选择日期",
+                "labelDoc_Name": "文档链接名称",
+                "labelDoc_Link": "链接",
+                "labelCatalog": "选择产品目录项",
+                "labelCatalogs": "多选产品目录项",
+                "labelPicture": "封面图片",
+                "labelSelectSignals": "多选信号点",
+                "labelSelectSignal": "选择信号点",
+                "labelSchemaName": "原理图名称",
+                "labelSelectTimestamp": "选择时间戳",
+                "createDashboard": "新建空白看板还是基于模板新建看板？",
+                "emptyDashboard": "空白看板",
+                "basedDashboard": "基于模板新建看板"
+            },
+            "Dialog": {}
+        }
+    },
+    "RELATED": {
+        "mes1": "该时间没有配置相关信号数据!",
+        "mes2": "该时间没有配置相关高密度数据!",
+        "mes3": "该时间没有配置相关信号点!"
+    },
+    "DELETEFORM": {
+        "Message": "请确认是否删除 ?"
+    },
+    "ACTION": {
+        "ACTION": "修改",
+        "Save": "保存",
+        "Edit": "编辑",
+        "Delete": "删除",
+        "Close": "关闭",
+        "Add": "增加",
+        "Back": "返回",
+        "Import": "导入",
+        "Export": "导出",
+        "Acknowledge": "确认",
+        "Diagnose": "诊断",
+        "Create": "新建",
+        "Remove": "移除",
+        "Set": "设置",
+        "Cancel": "取消",
+        "Start": "开始幻灯片",
+        "OK": "确认",
+        "Trigger": "触发",
+        "RESULTS_PER_PAGE": "每页显示记录",
+        "Detail": "详情",
+        "Reset_P": "重置密码",
+        "Filter": "筛选",
+        "More": "详情",
+        "Create_Signal": "创建新信号",
+        "Assign_Healthy": "关联健康度信号",
+        "Confirm_delete": "请确认是否删除"
+    },
+    "DOCUMENT": {
+        "TitleEdit": "编辑关联文档",
+        "TitleCreate": "新建关联文档",
+        "DeleteHeader": "删除该ID对应的文档",
+        "Form": {
+            "Title": "主题",
+            "UploadDocs": "新建文档",
+            "Image": "封面图片"
+        }
+    },
+    "RELATEDFORM": {
+        "ReSig": "相关信号, 错误",
+        "IntenTitle": "高密度信号",
+        "SelectInten": "选择相关高密度信号",
+        "Time": "时间",
+        "PoSig": "信号点",
+        "SelectSig": "选择信号"
+    }
+}

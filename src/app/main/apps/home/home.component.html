@@ -1,0 +1,20 @@
+<div class="page-layout simple page-layout-custom">
+
+    <div class="div-parent" fxLayout="row">
+        <!-- project component -->
+        <mat-grid-list cols="4" rowHeight="1:1">
+            <div *ngFor="let project of projects" class="component-project">
+                <app-element-detail [element]="project"></app-element-detail>
+            </div>
+        </mat-grid-list>
+    </div>
+
+    <div class="div-parent" fxLayout="row">
+        <!-- document component -->
+        <mat-grid-list cols="4" rowHeight="2:1">
+            <div *ngFor="let document of documents" class="component-document">
+                <app-element-detail [element]="document"></app-element-detail>
+            </div>
+        </mat-grid-list>
+    </div>
+</div>

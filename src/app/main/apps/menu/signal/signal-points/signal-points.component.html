@@ -1,0 +1,9 @@
+<div class="page-layout simple page-layout-custom" id="signal-setting">
+    <h2>{{'SIGNAL.Points.Title' | translate}}</h2>
+    <!-- <button (click)="test()"></button> -->
+    <mat-grid-list *ngIf="signalPoints.length > 0" cols="4" rowHeight="100px">
+        <mat-grid-tile *ngFor="let point of signalPoints">
+            <app-signal-point-dialog [data]="point" [realTimeData]="realTimeData"></app-signal-point-dialog>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

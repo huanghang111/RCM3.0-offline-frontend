@@ -1,0 +1,117 @@
+@import "src/@rcm/scss/fuse";
+
+.signal-create-form {
+    .mat-dialog-container {
+        padding: 0;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        min-width: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mat-form-field-wrapper {
+        padding: 0 5px 5px !important;
+    }
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+
+mat-toolbar {
+    background-color: #002B49 !important;
+}
+
+.related-data-btn {
+    margin-top: 4px;
+}
+
+button {
+    &.edit-signal-input-picture {
+        border: 1px solid black;
+        height: 23px;
+        cursor: pointer;
+        padding-left: 5px;
+        width: 150px;
+        text-align: left;
+        color: black;
+        background-color: white;
+        font-size: 13px;
+        text-transform: none;
+        font-family: "Bosch Sans Regular", sans-serif !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+    }
+}
+
+img {
+    &.edit-signal-picture {
+        width: 220px;
+        height: 150px;
+        padding-left: 20px;
+    }
+}
+
+mat-icon {
+    cursor: pointer !important;
+
+    &.remove-document-icon {
+        color: red;
+        float: right;
+        line-height: 0.7 !important;
+    }
+
+    &.add-document-icon {
+        color: #3aa2d0;
+        float: left;
+        line-height: 0.7 !important;
+    }
+}
+
+ul {
+    &.document-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        flex-flow: column wrap;
+        height: 100px;
+        padding-left: 0;
+
+        > li {
+            // height: 25px;
+            width: 160px;
+
+            > a {
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.minSelect {
+    min-width: 60px;
+}
+
+.error-mes {
+    color: red;
+}
+
+angular-editor {
+    .angular-editor {
+        max-width: 870px;
+    }
+}

@@ -1,0 +1,111 @@
+@import "src/@rcm/scss/fuse";
+
+#dashboard-dialog {
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+
+    // @include media-breakpoint('gt-xs') {
+    //     width: 400px;
+    // }
+
+    .mat-dialog-container {
+        padding: 0;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    mat-form-field.mat-form-field {
+        width: 250px;
+        padding-right: 8px;
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .ok-button {
+        line-height: 35px;
+        height: 35px;
+        min-width: 50px;
+    }
+
+    .input-signal {
+        width: 100%;
+    }
+
+    .custom-label {
+        margin-right: 2%;
+    }
+
+    .component-file-selector {
+        position: relative;
+        margin-bottom: 5px;
+
+        .show-file-name {
+            .file-selector-wrapper {
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+            }
+        }
+
+        .file-selector-wrapper {
+            display: flex;
+            position: relative;
+        }
+
+        .file-selector {
+            cursor: pointer;
+            font-size: 0;
+            height: 38px;
+            left: 0;
+            opacity: 0;
+            position: absolute;
+            text-indent: -99999px;
+            top: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .file-name-container {
+            border: 1px solid #a3bac8;
+            min-width: 100px;
+            opacity: 0;
+            -ms-flex-order: 2;
+            order: 2;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .file-name {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-active {
+            opacity: 1;
+        }
+
+        .img-area {
+            max-width: 250px;
+            height: auto;
+            justify-content: flex-end;
+        }
+    }
+}
+
+mat-toolbar {
+    background-color: #002b49 !important;
+}

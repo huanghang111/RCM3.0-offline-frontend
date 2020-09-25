@@ -1,0 +1,45 @@
+<div class="page-layout simple page-layout-custom" id="dashboard-setting">
+    <div>
+        <app-common-dashboard *ngFor="let dashboard of dashboards" (refresh)="onRefresh($event)" [dashboard]="dashboard"
+                              [settingMode]="true">
+        </app-common-dashboard>
+
+        <mat-card class="custom-mat-card">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button (click)="addDashboard()" color="light" mat-raised-button title="{{'ACTION.Add' | translate}}">
+                    <mat-icon>add_box</mat-icon>
+                </button>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<ng-template #dashboardOption>
+    <ng-container>
+        <div class="dialog-content-wrapper" id="dashboard-dialog">
+            <mat-toolbar class="mat-accent m-0" matDialogTitle>
+                <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                    <span class="title dialog-title">{{'PROJECT.Dashboard.titleCreate' | translate}}</span>
+                    <button (click)="optionDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+                <h3>{{'PROJECT.Dashboard.Mes.createDashboard' | translate}}</h3>
+            </div>
+
+            <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+                <button (click)="optionDialogRef.close('customized')" color="secondary" mat-button mat-raised-button
+                        type="submit" title="{{'PROJECT.Dashboard.Mes.emptyDashboard' | translate}}">
+                    {{'PROJECT.Dashboard.Mes.emptyDashboard' | translate}}
+                </button>
+                <button (click)="optionDialogRef.close('template')" color="secondary" mat-button mat-raised-button
+                        type="submit"
+                        title="{{'PROJECT.Dashboard.Mes.basedDashboard' | translate}}">
+                    {{'PROJECT.Dashboard.Mes.basedDashboard' | translate}}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>

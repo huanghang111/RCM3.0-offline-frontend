@@ -1,0 +1,8 @@
+<div class="page-layout simple page-layout-custom" id="signal-setting">
+    <h2>{{'SIGNAL.Intensive.Title' | translate}}</h2>
+    <mat-grid-list *ngIf="intensiveSignals.length > 0" cols="6" rowHeight="100px">
+        <mat-grid-tile *ngFor="let signal of intensiveSignals">
+            <app-intensive-card [data]="signal" class="app-intensive"></app-intensive-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

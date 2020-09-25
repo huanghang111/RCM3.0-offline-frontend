@@ -1,0 +1,68 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary=".boundary-container" class="schematic-container">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <table style="width:100%; height: 100%">
+        <tr>
+            <th style="border-bottom: 2px solid #bcccd6; padding: 5px 0">
+                <h3 style="font-size: 20px; margin: 8px 0;">{{schemeName}}</h3>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <div class="image-container" fxLayout="row" fxLayoutAlign="end start">
+
+                    <div (dragover)="allowDrop($event)" (drop)="ondropAction($event)" id="image-drop-container">
+                        <ng-container #schemeContainer>
+                            <img src="{{imgSrc}}" alt="scheme alt">
+                        </ng-container>
+                    </div>
+
+                    <table class="point-list" *ngIf="mode !== 'view'">
+                        <tr (click)="onPointClick(signal.name, 'sp')"
+                            (dragstart)="dragDashboardElement($event, 'schemeSP', signal.name)"
+                            *ngFor="let signal of signalPointNames" [style.background]="getColor(signal.danger)"
+                            draggable="true">
+                            <div class="point-container" [class.blink]="signal.clicked">
+                                <a>{{signal.name}}</a>
+                            </div>
+                        </tr>
+                        <tr (click)="onPointClick(cata.name, 'cata')"
+                            (dragstart)="dragDashboardElement($event, 'schemeCata', cata.name)"
+                            *ngFor="let cata of cataNames" draggable="true" style="background-color: #beeff9">
+                            <div class="point-container" [class.blink]="cata.clicked">
+                                <a>{{cata.name}}</a>
+                            </div>
+                        </tr>
+                        <a (click)="saveSchematic()" id="schemeSaveBtn" style="display: none;">
+                        </a>
+                    </table>
+
+                    <table class="point-list" *ngIf="mode === 'view'">
+                        <tr (click)="onPointClick(signal.name, 'sp')"
+                            (dragstart)="dragDashboardElement($event, 'schemeSP', signal.name)"
+                            *ngFor="let signal of signalPointNames" [style.background]="getColor(signal.danger)">
+                            <div class="point-container" [class.blink]="signal.clicked">
+                                <a>{{signal.name}}</a>
+                            </div>
+                        </tr>
+                        <tr (click)="onPointClick(cata.name, 'cata')"
+                            (dragstart)="dragDashboardElement($event, 'schemeCata', cata.name)"
+                            *ngFor="let cata of cataNames" style="background-color: #beeff9">
+                            <div class="point-container" [class.blink]="cata.clicked">
+                                <a>{{cata.name}}</a>
+                            </div>
+                        </tr>
+                        <a (click)="saveSchematic()" id="schemeSaveBtn" style="display: none;">
+                        </a>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

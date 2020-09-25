@@ -1,0 +1,12 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary=".boundary-container" class="line-realtime">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <echarts *ngIf="!loading" [options]="chartOptions" [merge]="updateOptions"
+             style="width: 100%; height: 85%; display: block;"></echarts>
+</div>

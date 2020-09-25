@@ -1,0 +1,37 @@
+<mat-card class="card">
+    <mat-card-header class="header">
+        <h2 class="title">{{document.title}}</h2>
+        <div class="action">
+            <button [matMenuTriggerFor]="documentMenu" class="button-list" color="dark" mat-raised-button>
+                <mat-icon>list</mat-icon>
+            </button>
+            <mat-menu #documentMenu="matMenu" [overlapTrigger]="false">
+                <button (click)="editDocument(document)" mat-menu-item>
+                    <mat-icon>edit</mat-icon>
+                    <span>{{ 'ACTION.Edit' | translate }}</span>
+                </button>
+                <button (click)="deleteDocument(document.title)" mat-menu-item>
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>{{ 'ACTION.Remove' | translate }}</span>
+                </button>
+            </mat-menu>
+        </div>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+        <div class="img-area">
+            <img *ngIf="document.image" class="img-custom" src="data:image/jpeg;base64,{{document.image}}">
+            <img *ngIf="!document.image" class="img-custom"
+                 src="../../../../../../../../assets/images/project/RCM_Project.png">
+        </div>
+    </mat-card-content>
+
+    <!-- <mat-card-actions>
+        <div class="button-area">
+            <button mat-button (click)="deleteDocument(document.title)" class="button-delete" mat-raised-button
+                color="teriary">DELETE</button>
+            <button mat-button (click)="editDocument(document)" class="button-edit" mat-raised-button
+                color="secondary">EDIT</button>
+        </div>
+    </mat-card-actions> -->
+</mat-card>

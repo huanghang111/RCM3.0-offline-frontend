@@ -1,0 +1,68 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{intensiveSignal.name}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" mat-dialog-content>
+
+        <div class="filter-area" fxLayout="row" fxLayoutAlign="center center">
+            <fieldset class="custom-fieldset">
+                <legend>{{'SIGNAL.Intensive.Info.Filter' | translate}}</legend>
+                <form [formGroup]="intensiveDataForm" fxLayout="row" fxLayoutAlign="space-evenly center"
+                      fxLayoutGap="20px">
+                    <div>
+                        <mat-form-field>
+                            <input (dateInput)="fromDateEvent($event.value)" [matDatepicker]="fromDate"
+                                   formControlName='dateFrom' matInput
+                                   placeholder="{{'SIGNAL.Intensive.Info.From' | translate}}">
+                            <mat-datepicker-toggle [for]="fromDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #fromDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <input (dateInput)="toDateEvent($event.value)" [matDatepicker]="toDate"
+                                   formControlName='dateTo' matInput
+                                   placeholder="{{'SIGNAL.Intensive.Info.To' | translate}}">
+                            <mat-datepicker-toggle [for]="toDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #toDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <button (click)="onFilter()" color="primary" mat-raised-button
+                            title="{{'ACTION.Filter' | translate}}">
+                        <mat-icon>filter_list_alt</mat-icon>
+                    </button>
+                </form>
+            </fieldset>
+        </div>
+
+        <div class="chart-area" fxLayout="row" fxLayoutAlign="start start">
+            <div style="display: block;" fxFlex="80" class="app-chart">
+                <echarts *ngIf="!loading" [options]="chartOptions"
+                         style="width: 100%; height: 100%; display: block;">
+                </echarts>
+            </div>
+
+
+            <div class="timestamp">
+                    <ng-select [items]="timestampListBuffer" [virtualScroll]="true" [loading]="listLoading" (scroll)="onScroll($event)"
+                    (scrollToEnd)="onScrollToEnd()" (change)="onTimestampChange($event)" [(ngModel)]="currentTimestamp">
+                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                        {{item}}
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close" color="teriary" mat-raised-button type="button"
+                title="{{'ACTION.Close' | translate}}">{{'ACTION.Close' | translate}}
+        </button>
+    </div>
+
+</div>

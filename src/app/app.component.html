@@ -1,0 +1,20 @@
+<!-- PROGRESS BAR -->
+<fuse-progress-bar></fuse-progress-bar>
+<!-- / PROGRESS BAR -->
+
+<!-- HORIZONTAL LAYOUT 1 -->
+<ng-container *ngIf="fuseConfig.layout.style === 'horizontal-layout-1'">
+    <horizontal-layout-1></horizontal-layout-1>
+</ng-container>
+<!-- / HORIZONTAL LAYOUT 1 -->
+
+<!-- / THEME OPTIONS PANEL -->
+
+<div [hidden]="true" class="loading-spinner">
+    <div fxLayoutAlign="center center" fxLayout="row" style="height: 100% !important">
+        <img src="assets/images/loading_spinner.gif" alt="">
+        <a (click)="hideSpinner()" style="position: relative; top: -60px; right: -40px; cursor: pointer;" title="Hide">
+            <mat-icon style="font-size: 35px">close</mat-icon>
+        </a>
+    </div>
+</div>

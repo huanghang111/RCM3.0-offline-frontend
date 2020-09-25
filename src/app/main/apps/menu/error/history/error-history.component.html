@@ -1,0 +1,204 @@
+<div class="page-layout simple page-layout-custom" id="error-history">
+
+    <!-- CONTENT -->
+    <div class="content p-24" fxLayout="column">
+
+        <!--        Filter panel-->
+        <form [formGroup]="filterForm" id="formFilter">
+            <fieldset class="error-history-filter">
+                <legend>{{ 'ERROR.HISTORY.TITLE' | translate }}</legend>
+                <div fxLayout="row" fxLayoutAlign="space-around center">
+                    <div>
+                        <mat-label>{{ 'ERROR.HISTORY.DateFrom' | translate }}</mat-label>
+                        <mat-form-field>
+                            <input (dateInput)="fromDateEvent($event.value)" [matDatepicker]="fromDate"
+                                   formControlName='dateFrom' matInput
+                                   placeholder="{{ 'ERROR.HISTORY.DatePlaceholder' | translate }}">
+                            <mat-datepicker-toggle [for]="fromDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #fromDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-label>{{ 'ERROR.HISTORY.DateTo' | translate }}</mat-label>
+                        <mat-form-field>
+                            <input (dateInput)="toDateEvent($event.value)" [matDatepicker]="toDate"
+                                   formControlName='dateTo' matInput
+                                   placeholder="{{ 'ERROR.HISTORY.DatePlaceholder' | translate }}">
+                            <mat-datepicker-toggle [for]="toDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #toDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="signalid-selector">
+                            <mat-label>{{ 'ERROR.HISTORY.SignalLabel' | translate }}</mat-label>
+                            <mat-select disableOptionCentering formControlName='signalNames' matNativeControl multiple
+                                        panelClass="error-history-id-selector">
+                                <mat-option #allSelected (click)="toggleAllSelection()" [value]="0">
+                                    Select All
+                                </mat-option>
+                                <mat-option (click)="togglePerSelection()" *ngFor="let signal of signalList"
+                                            value="{{signal.name}}">
+                                    {{signal.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-label>{{ 'ERROR.HISTORY.GroupLabel' | translate }}</mat-label>
+                        <mat-form-field>
+                            <mat-select (selectionChange)="onGroupChange($event)" disableOptionCentering
+                                        formControlName='groupBy' matNativeControl
+                                        panelClass="error-history-group-selector">
+                                <mat-option value="time">{{ 'ERROR.HISTORY.GroupTime' | translate }}</mat-option>
+                                <mat-option value="signal">{{ 'ERROR.HISTORY.GroupSignal' | translate }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <button (click)="onFilter()" color="primary" mat-raised-button
+                            title="{{ 'ERROR.HISTORY.TITLE' | translate }}">
+                        <mat-icon>filter_list_alt</mat-icon>
+                    </button>
+
+                </div>
+            </fieldset>
+        </form>
+        <!--Error history by signal data table-->
+        <div *ngIf="currentGroup=='signal'" class="error-history-result" fxLayout="column">
+            <div *ngIf="isNoData; then showBlank else showData"></div>
+            <ng-template #showBlank>
+                <h1 style="align-self: center;">{{ 'ERROR.HISTORY.NoData' | translate }}</h1>
+            </ng-template>
+            <ng-template #showData>
+                <mat-table #table
+                           [dataSource]="dataSrc | paginate: { id: 'signalTable', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+                           class="mat-elevation-z8" width="100%">
+                    <ng-container matColumnDef="select">
+                        <mat-header-cell
+                            *matHeaderCellDef>{{ 'ERROR.HISTORY.TableHistory.SELECT' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element; let i = index">
+                            <mat-checkbox (change)="checkItem($event, i)"></mat-checkbox>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="sigID">
+                        <mat-header-cell
+                            *matHeaderCellDef>{{ 'ERROR.HISTORY.TableHistory.ID' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            {{element.signal.signalId}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="sigName">
+                        <mat-header-cell
+                            *matHeaderCellDef>{{ 'ERROR.HISTORY.TableHistory.NAME' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.signal.name}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="count">
+                        <mat-header-cell
+                            *matHeaderCellDef>{{ 'ERROR.HISTORY.TableHistory.COUNT' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.countError}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell
+                            *matHeaderCellDef> {{ 'ERROR.HISTORY.TableHistory.ACTION' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <button (click)="errorDetail(element.signal.name)" style="height: 35px;" color="secondary"
+                                    mat-raised-button
+                                    title="{{ 'ACTION.Detail' | translate }}">{{ 'ACTION.Detail' | translate }}
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="groupSignalColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: groupSignalColumns;"></mat-row>
+                </mat-table>
+                <div class="rcm-pagination" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div>
+                        <span>{{ 'ACTION.RESULTS_PER_PAGE' | translate }}: </span>
+                        <ul class="rcm-pagination-list">
+                            <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                            <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                            <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                            <li (click)="onItemPerPage(100)" [class.current]="itemsPerPage==100"><a>100</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true"
+                                             [nextLabel]="''" [previousLabel]="''"
+                                             id="signalTable"></pagination-controls>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <!--Error history by time data table-->
+        <div *ngIf="currentGroup == 'time'" class="error-history-result" fxLayout="column">
+            <div *ngIf="isNoData; then showBlank else showData"></div>
+            <ng-template #showBlank>
+                <h1 style="align-self: center;">No data for such filter</h1>
+            </ng-template>
+            <ng-template #showData>
+                <mat-table #table (matSortChange)="onSortData($event)"
+                           [dataSource]="dataSrc | paginate: { id: 'signalTable', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+                           class="mat-elevation-z8" matSort width="100%">
+
+                    <ng-container matColumnDef="sigID">
+                        <mat-header-cell *matHeaderCellDef> {{ 'ERROR.HISTORY.TableHistoryTime.id' | translate }}
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.signal.signalId}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="sigName">
+                        <mat-header-cell *matHeaderCellDef> {{ 'ERROR.HISTORY.TableHistoryTime.name' | translate }}
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.error.name}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="values">
+                        <mat-header-cell *matHeaderCellDef> {{ 'ERROR.HISTORY.TableHistoryTime.value' | translate }}
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.error.values}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="threshold">
+                        <mat-header-cell *matHeaderCellDef>
+                            {{ 'ERROR.HISTORY.TableHistoryTime.threshold' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{showThreshold(element.error.threshold)}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="timestamp">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'ERROR.HISTORY.TableHistoryTime.timestamp' | translate }}</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{convertDate(element.error.timestamp)}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="groupTimeColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: groupTimeColumns;"></mat-row>
+                </mat-table>
+                <div class="rcm-pagination" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div>
+                        <span>{{ 'ACTION.RESULTS_PER_PAGE' | translate }}: </span>
+                        <ul class="rcm-pagination-list">
+                            <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                            <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                            <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                            <li (click)="onItemPerPage(100)" [class.current]="itemsPerPage==100"><a>100</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true"
+                                             [nextLabel]="''" [previousLabel]="''"
+                                             id="signalTable"></pagination-controls>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+        <div>
+            <button (click)="onExport()" color="dark" mat-raised-button
+                    style="float:right;"
+                    title="{{ 'ACTION.Export' | translate }}">{{ 'ACTION.Export' | translate }}</button>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+
+</div>

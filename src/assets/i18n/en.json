@@ -1,0 +1,432 @@
+{
+    "LOGIN": {
+        "LOGIN": "LOGIN",
+        "LOGOUT": "LOGOUT",
+        "TITLE": "Welcome to RCM",
+        "USERNAME": "Username",
+        "PASSWORD": "Password",
+        "URequired": "Username is required",
+        "UMinLength": "Username min length is 1 character",
+        "UMaxLength": "Username max length is 50 character",
+        "PRequired": "Password is required",
+        "PMinLength": "Password min length is 1 character",
+        "PMaxLength": "Password max length is 100 character",
+        "PConfirmRequire": "Password confirmation is required",
+        "PMustMatch": "Confirm passwords must match",
+        "UPWrong": "Wrong Username or Password"
+    },
+    "NAV": {
+        "Home": "Home",
+        "Log": "Log",
+        "User": "User",
+        "Setting": "Setting"
+    },
+    "MENU": {
+        "Error": {
+            "Error": "Error",
+            "Latest": "Latest",
+            "History": "History"
+        },
+        "Signal": {
+            "Signal": "Signal",
+            "Points": "Signal Points",
+            "Intensive": "Intensive Signals"
+        },
+        "Diagnose": "Diagnostics",
+        "Config": {
+            "Configuration": "Configuration",
+            "Signal": "Signal",
+            "Diagnose": "Diagnose",
+            "Export": "Export"
+        }
+    },
+    "USER": {
+        "USER": "USER",
+        "Table": {
+            "Username": "USERNAME",
+            "FullName": "FULL NAME",
+            "Project": "PROJECT",
+            "Operation": "OPERATION"
+        },
+        "Form": {
+            "Username": "Username",
+            "FullName": "Full name",
+            "Project": "Project",
+            "Password": "Password",
+            "Confirm": "Password (Confirm)"
+        }
+    },
+    "LOG": {
+        "LOG": "LOG",
+        "Filterlog": "Filter log",
+        "DateFrom": "Date range:",
+        "DateTo": "To: ",
+        "DatePlaceholder": "Choose date",
+        "Usertype": "User type",
+        "Operation": "Operation",
+        "Keywords": "Keywords",
+        "Search": "Search",
+        "NoDataMess": "No data for such filter",
+        "All": "All",
+        "Table": {
+            "Time": "TIME",
+            "Username": "USERNAME",
+            "Operation": "OPERATION",
+            "Message": "MESSAGE"
+        }
+    },
+    "ERROR": {
+        "LATEST": {
+            "TITLE": "Latest Error",
+            "Select": "Select",
+            "Unselect": "Unselect",
+            "All": "All",
+            "Table": {
+                "id": "ID",
+                "name": "NAME",
+                "value": "VALUE",
+                "threshold": "THRESHOLD",
+                "timestamp": "TIMESTAMP",
+                "related": "RELATED DATA"
+            }
+        },
+        "HISTORY": {
+            "TITLE": "Filter",
+            "DateFrom": "Date Range",
+            "DateTo": "To",
+            "DatePlaceholder": "Choose date",
+            "SignalLabel": "Signal ID",
+            "GroupLabel": "Group by",
+            "GroupSignal": "Signal",
+            "GroupTime": "Time",
+            "NoData": "No data for such filter",
+            "TableHistory": {
+                "SELECT": "SELECT",
+                "ID": "ID",
+                "NAME": "NAME",
+                "COUNT": "COUNT",
+                "ACTION": "ACTION"
+            },
+            "TableHistoryTime": {
+                "id": "ID",
+                "name": "NAME",
+                "value": "VALUE",
+                "threshold": "THRESHOLD",
+                "timestamp": "TIMESTAMP"
+            },
+            "TableSignal": {
+                "NAME": "NAME",
+                "Value": "ERROR VALUE",
+                "THRESHOLD": "THRESHOLD",
+                "TIMESTAMP": "TIMESTAMP",
+                "ACK": "ACKNOWLEDGE"
+            }
+        }
+    },
+    "SIGNAL": {
+        "Points": {
+            "Title": "Signal Points",
+            "NoData": "No data available",
+            "Info": {
+                "Info": "Information",
+                "Description": "Description",
+                "Documents": "Documents",
+                "Tab": {
+                    "His": "Historical",
+                    "Pic": "Picture",
+                    "Threshold": "Threshold",
+                    "From": "Date from",
+                    "To": "Date to"
+                },
+                "NoData": "No picture available"
+            }
+        },
+        "Intensive": {
+            "Title": "Intensive Signals",
+            "Info": {
+                "Info": "Information",
+                "Trigger": "Trigger",
+                "Filter": "Date range",
+                "From": "Date from",
+                "To": "Date to",
+                "Timestamp": "Select Timestamp"
+            }
+        }
+    },
+    "DIAGNOSE": {
+        "Diagnose": "Diagnose",
+        "Table": {
+            "Name": "FAULT NAME",
+            "Times": "OCCURANCE TIMES",
+            "Last": "LAST OCCURANCE",
+            "Act": "ACTION"
+        },
+        "Detail": {
+            "Detail": "Detail",
+            "Table": {
+                "TIME": "TIME",
+                "OUT": "OUTPUT CALCULATION",
+                "MEASUREMENT": "MEASUREMENT",
+                "RELATED": "RELATED DATA"
+            }
+        },
+        "Calc": {
+            "Calculation": "Calculation",
+            "Formular": "diagnostics formular"
+        }
+    },
+    "CONFIGURATION": {
+        "Signal": {
+            "Import": "Import Signal",
+            "ImportMessage": "Please choose only '.xlsx' files ",
+            "File": "Select File",
+            "Title": "Signals",
+            "Soft_delete": "Delete signal with ID ",
+            "Calculation": {
+                "LabelCalculation": "ADD CALCULATION",
+                "Normal": "Create Normal Signal",
+                "Fault": "Create Fault Trigger Signal",
+                "Diagnose": "Create Diagnose ID Signal",
+                "NewNormal": "New Normal Signal",
+                "NewFault": "New Fault Signal",
+                "NewDiagnose": "New Diagnose"
+            },
+            "Table": {
+                "CMD": "CMD",
+                "ID": "SIG ID",
+                "Name": "SIG NAME",
+                "Des": "DESCRIPTION",
+                "Type": "SIG TYPE",
+                "Act": "ACTION"
+            },
+            "DiaglogEdit": {
+                "Edit": "Edit Signal",
+                "Create": "Create Signal",
+                "CreateCata": "Create Catalog Item",
+                "ID": "ID",
+                "SignalID": "Signal ID",
+                "SignalName": "Signal Name",
+                "Type": "Data type",
+                "Des": "Description",
+                "Unit": "Unit",
+                "Threshold": "Threshold",
+                "TooLow": "Too low",
+                "Low": "Low",
+                "High": "High",
+                "TooHigh": "Too high",
+                "Digit": "Digit",
+                "ErrorMess": "Error Message",
+                "RelatedButton": "Related data",
+                "DisTrue": "Display true",
+                "DisFalse": "Display false",
+                "BrowsePic": "Browse picture..",
+                "AddDoc": "Add document",
+                "Trigger": "Trigger",
+                "Manual": "Manual",
+                "Automatic": "Automatic",
+                "Hour": "Hour",
+                "Minute": "Minute",
+                "Second": "Second",
+                "Tag": "Tag",
+                "LinkAct": "Add link",
+                "Link": "Link",
+                "Doc": "Add document",
+                "EnterText": "Enter text here...",
+                "PLCID": "PLCID",
+                "CMD": "CMD",
+                "MODE": "Mode",
+                "INTERVAL": "Interval",
+                "DATASIZE": "Data Size (bytes)",
+                "DATALEN": "Data Length",
+                "TOTALLEN": "Total Length"
+            },
+            "HealthyForm": {
+                "Title": "Healthy Signal",
+                "Note": "Please choose one to be assigned as Healthy Signal",
+                "SignalLabel": "Signal name"
+            },
+            "SignalCal": {
+                "Normal": "New Normal Calculation",
+                "Fault": "New Fault Calculation",
+                "Diagnose": "New Diagnose Calculation",
+                "Signal1": "Signal 1",
+                "Signal1Mes": "Signal 1 is required",
+                "Signal2": "Signal 2",
+                "Signal2Mes": "Signal 2 is required",
+                "Method1": "Medthod 1",
+                "Method1Mes": "Method 1 is required",
+                "Method2": "Method 2",
+                "Method2Mes": "Method 2 is required",
+                "Out": "Output Signal to",
+                "OutputMes": "Output Signal is required",
+                "NewSig": "New Signal Name",
+                "NewSigMes": "New signal name is required",
+                "NewSigMax": "Max length of signal name is 100 characters"
+            }
+        },
+        "Diagnose": {
+            "Add": "Add Diagnose",
+            "EditD": "Edit Diagnose",
+            "AddStep": "Add Step",
+            "EditStep": "Edit Step",
+            "Table": {
+                "ID": "SIG ID",
+                "Name": "FAULT NAME",
+                "DES": "FAULT DESCRIPTION",
+                "ACT": "ACTION",
+                "Edit": "Edit Diagnose"
+            },
+            "TableDiagnose": {
+                "Out": "CALCULATION OUTPUT",
+                "DES": "DESCRIPTION",
+                "OPERATION": "OPERATION"
+            },
+            "ECForm": {
+                "EditTitle": "Edit Diagnose",
+                "CreateTitle": "Create Diagnose",
+                "Out": "Calculation Output",
+                "Des": "Description"
+            },
+            "StepForm": {
+                "Title": "Edit step for diagnose instance with output: ",
+                "Step": "Step",
+                "AddTitle": "Add step",
+                "EditTitle": "Edit step",
+                "Des": "Description",
+                "AddPic": "Add picture",
+                "DeleteHeader": "Delete this diagnose step ?"
+            },
+            "DeleteForm": {
+                "Title": "Delete Calculation output: "
+            }
+        },
+        "Export": {
+            "Title": "Export Signal",
+            "SignalLabel": "Select signal",
+            "From": "Date from",
+            "To": "Date to"
+        }
+    },
+    "PROJECT": {
+        "ECForm": {
+            "TitleEdit": "Edit Project Form",
+            "TitleCreate": "Create Project Form",
+            "DeleteHeader": " Delete Project",
+            "Name": "Project name",
+            "Valid": "Valid from",
+            "Address": "Address",
+            "Image": "Cover image",
+            "Browse": "Browse picture.."
+        },
+        "Dashboard": {
+            "SlideAct": "Add slide",
+            "ViewDash": "View Dashboard",
+            "EditDash": "Edit Dashboard",
+            "DeleteTitle": "Delete dashboard: ",
+            "Time": "Time",
+            "Sec": "Seconds",
+            "Name": "Dashboard Name",
+            "NameMes": "Dashboard name cannot be empty",
+            "titleCreate": "Create Dashboard",
+            "Elements": {
+                "Elements": "Elements",
+                "Text": "TEXT",
+                "SigPoint": "SIGNAL POINT",
+                "Document": "DOCUMENT LINK",
+                "Catalog": {
+                    "Catalog": "CATALOG ITEM",
+                    "CatalogName": "Name",
+                    "CatalogDes": "Description",
+                    "CatalogTag": "Tag",
+                    "CatalogDocs": "Documents",
+                    "CatalogLinks": "Links",
+                    "plcHolderCatalogName": "Catalog name",
+                    "plcHolderCatalogDes": "Description",
+                    "plcHolderCatalogTag": "Tag",
+                    "Link": "Link"
+                },
+                "Picture": "PICTURE",
+                "ChartHis": "LINE CHART HISTORICAL",
+                "ChartIntensive": "LINE CHART INTENSIVE",
+                "ChartReal": "LINE CHART REALTIME",
+                "ChartBar": "BAR CHART",
+                "Schematic": "SCHEMATIC",
+                "PieChart": {
+                    "Opento": "To latest error"
+                }
+            },
+            "Mes": {
+                "plcHolderText": "Please input text",
+                "plcHolderSigPoint": "Please choose an ID",
+                "plcHolderDate": "Choose a date",
+                "labelDoc_Name": "Name of Document Link",
+                "labelDoc_Link": "Link",
+                "labelCatalog": "Select catalog item",
+                "labelCatalogs": "Select catalog items",
+                "labelPicture": "Cover image",
+                "labelSelectSignals": "Select signals",
+                "labelSelectSignal": "Select signal",
+                "labelSchemaName": "Schematic name",
+                "labelSelectTimestamp": "Select timestamp",
+                "createDashboard": "Would you create a custom Dashboard or base on a pre-defined Dashboard?",
+                "emptyDashboard": "Empty Dashboard",
+                "basedDashboard": "Template-based Dashboard"
+            },
+            "Dialog": {}
+        }
+    },
+    "RELATED": {
+        "mes1": "There's no related signal configured",
+        "mes2": "There's no intensive signal configured",
+        "mes3": "There's no signal point configured"
+    },
+    "DELETEFORM": {
+        "Message": "Are you sure you want to delete ?"
+    },
+    "ACTION": {
+        "ACTION": "ACTION",
+        "Save": "Save",
+        "Edit": "Edit",
+        "Delete": "Delete",
+        "Close": "Close",
+        "Add": "Add",
+        "Back": "Back",
+        "Import": "Import",
+        "Export": "Export",
+        "Acknowledge": "Acknowledge",
+        "Diagnose": "Diagnose",
+        "Create": "Create",
+        "Remove": "Remove",
+        "Set": "Set",
+        "Cancel": "Cancel",
+        "Start": "Start Slide",
+        "OK": "OK",
+        "Trigger": "Trigger",
+        "RESULTS_PER_PAGE": "RESULTS PER PAGE",
+        "Detail": "Detail",
+        "Reset_P": "Reset Password",
+        "Filter": "Filter",
+        "More": "More",
+        "Create_Signal": "Create new Signal",
+        "Assign_Healthy": "Assign healthy signal",
+        "Confirm_delete": "Are you sure you want to delete ?"
+    },
+    "DOCUMENT": {
+        "TitleEdit": "Edit document",
+        "TitleCreate": "Create new document",
+        "DeleteHeader": "Delete document with title ",
+        "Form": {
+            "Title": "Title",
+            "UploadDocs": "Add document",
+            "Image": "Cover image"
+        }
+    },
+    "RELATEDFORM": {
+        "ReSig": "Related Signal of ",
+        "IntenTitle": "Intensive signal",
+        "SelectInten": "Select intensive signal",
+        "Time": "Time",
+        "PoSig": "Signal Point",
+        "SelectSig": "Select signal"
+    }
+}

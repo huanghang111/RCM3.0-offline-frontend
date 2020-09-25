@@ -1,0 +1,59 @@
+<div class="page-layout simple page-layout-custom" id="diagnose-home">
+    <!-- CONTENT -->
+    <div class="content p-24" fxLayout="column">
+
+        <div fxLayout="column">
+            <table
+                [dataSource]="dataSrc | paginate: { id: 'diagnoseTable', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+                class="mat-elevation-z8" mat-table width="100%">
+                <ng-container matColumnDef="faultName">
+                    <th *matHeaderCellDef mat-header-cell>{{'DIAGNOSE.Table.Name' | translate}}</th>
+                    <td *matCellDef="let element" mat-cell>
+                        {{element.name}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="occTime">
+                    <th *matHeaderCellDef mat-header-cell>{{'DIAGNOSE.Table.Times' | translate}}</th>
+                    <td *matCellDef="let element" mat-cell> {{element.total}} </td>
+                </ng-container>
+                <ng-container matColumnDef="lastOcc">
+                    <th *matHeaderCellDef mat-header-cell>{{'DIAGNOSE.Table.Last' | translate}}</th>
+                    <td *matCellDef="let element" mat-cell> {{convertDate(element.lastOccur)}} </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th *matHeaderCellDef mat-header-cell>{{'DIAGNOSE.Table.Act' | translate}}</th>
+                    <td *matCellDef="let element" mat-cell>
+                        <button (click)="onDiagnose(element.name, element.lastOccur)" class="action-btn"
+                                color="secondary" mat-raised-button type="button"
+                                title="{{'DIAGNOSE.Diagnose' | translate}}">{{'DIAGNOSE.Diagnose' | translate}}
+                        </button>
+                        <button (click)="onDetail(element.name)" class="action-btn" color="secondary" mat-raised-button
+                                type="button"
+                                title="{{'DIAGNOSE.Detail.Detail' | translate}}">{{'DIAGNOSE.Detail.Detail' | translate}}
+                        </button>
+                    </td>
+                </ng-container>
+                <tr *matHeaderRowDef="diagnoseColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: diagnoseColumns;" mat-row></tr>
+            </table>
+
+            <div class="rcm-pagination" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <span>{{ 'ACTION.RESULTS_PER_PAGE' | translate }}: </span>
+                    <ul class="rcm-pagination-list">
+                        <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                        <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                        <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                        <li (click)="onItemPerPage(100)" [class.current]="itemsPerPage==100"><a>100</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true" [nextLabel]="''"
+                                         [previousLabel]="''" id="diagnoseTable"></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

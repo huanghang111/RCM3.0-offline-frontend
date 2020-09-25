@@ -1,0 +1,29 @@
+@import "src/@rcm/components/countdown/countdown.theme";
+@import "src/@rcm/components/material-color-picker/material-color-picker.theme";
+@import "src/@rcm/components/search-bar/search-bar.theme";
+@import "src/@rcm/components/shortcuts/shortcuts.theme";
+@import "src/@rcm/components/sidebar/sidebar.theme";
+@import "src/@rcm/components/theme-options/theme-options.theme";
+@import "src/@rcm/components/widget/widget.theme";
+
+
+@mixin fuse-core-theme($theme) {
+
+    // Theming for Fuse core styles
+    @include colors-theme($theme);
+    @include cards-theme($theme);
+    @include material-theme($theme);
+    @include page-layouts-theme($theme);
+    @include typography-theme($theme);
+
+    // Theming for Fuse components
+    @include fuse-countdown-theme($theme);
+    @include fuse-search-bar-theme($theme);
+    @include fuse-shortcuts-theme($theme);
+    @include fuse-sidebar-theme($theme);
+    @include fuse-theme-options-theme($theme);
+    @include fuse-material-color-picker-theme($theme);
+    @include fuse-widget-theme($theme);
+
+}
+

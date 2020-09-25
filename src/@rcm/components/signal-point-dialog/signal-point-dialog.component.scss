@@ -1,0 +1,119 @@
+app-signal-point-dialog {
+    .point-card {
+        width: 160px;
+        word-break: break-all;
+        vertical-align: central;
+        height: max-content;
+        position: relative;
+
+        mat-card-content {
+            p {
+                word-wrap: break-word;
+            }
+
+            a {
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .box {
+        padding: 0 4% 0 4%;
+        position: relative;
+        overflow: hidden;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 70% auto;
+        height: 100%;
+        min-height: 100%;
+        display: block;
+        text-decoration: none;
+        width: 285px;
+    }
+
+    .box.status {
+        height: auto;
+        min-height: 0;
+        margin: 8px 0;
+        padding: 8px 0 8px 24px;
+        border-left: 0;
+        border-right: 0;
+        border-top: 14px solid #e5eef2;
+        border-bottom: 14px solid #e5eef2;
+        overflow: visible;
+
+        svg {
+            overflow: visible;
+        }
+
+        .scale {
+            height: 100%;
+            min-height: 100%;
+            width: 14px;
+            background-color: #e5eef2;
+            position: absolute;
+            left: 0px;
+            top: 0;
+        }
+
+        .label {
+            font-family: "Bosch Sans Light", Verdana, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            display: block;
+            padding: 0;
+            margin: 0 0 5px 0;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        @media (max-width: 1100px) {
+            .label {
+                font-size: 16px;
+            }
+        }
+
+        .value {
+            font-family: "Bosch Sans Light", Verdana, Arial, sans-serif;
+            font-size: 22px;
+            color: #198900;
+            display: block;
+            line-height: 1.2;
+            padding: 0;
+            margin: 0;
+        }
+
+        .color-followed {
+            color: #fff;
+        }
+
+        .signal-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 200px;
+        }
+
+        .infoBox {
+            height: 100%;
+            min-height: 100%;
+            width: 60px;
+            background-color: #e5eef2;
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-align: center;
+
+            .info-button {
+                height: 38px;
+                line-height: 26px;
+                padding: 0 !important;
+                min-width: 44px;
+            }
+        }
+    }
+
+}

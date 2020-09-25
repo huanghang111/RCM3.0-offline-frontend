@@ -1,0 +1,117 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar fxLayout="column" fxLayoutGap="10px" mat-dialog-content>
+
+        <form [formGroup]="newSignalForm">
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap='10px'>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.SignalCal.Signal1' | translate}}</mat-label>
+                    <mat-select (selectionChange)="onSignalOneChange($event)" formControlName="signalOne"
+                                name="signalOne" required>
+                        <mat-option *ngFor="let signal of signalOnes" [value]="signal.name">
+                            {{signal.name}} ({{signal.dataType.name}})
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.signalOne.invalid">
+                        {{'CONFIGURATION.Signal.SignalCal.Signal1Mes' | translate}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.SignalCal.Method1' | translate}}</mat-label>
+                    <mat-select formControlName="methodOne" name="methodOne">
+                        <mat-option value=""></mat-option>
+                        <mat-option *ngFor="let method of methodOnes" [value]="method.value">
+                            {{method.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.methodOne.invalid">
+                        {{'CONFIGURATION.Signal.SignalCal.Method1Mes' | translate}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap='10px'>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.SignalCal.Signal2' | translate}}</mat-label>
+                    <mat-select (selectionChange)="onSignalTwoChange($event)" formControlName="signalTwo"
+                                name="signalTwo">
+                        <mat-option value=""></mat-option>
+                        <mat-option *ngFor="let signal of signalTwos" [value]="signal.name">
+                            {{signal.name}} ({{signal.dataType.name}})
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.signalTwo.invalid">
+                        {{'CONFIGURATION.Signal.SignalCal.Signal2Mes' | translate}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.SignalCal.Method2' | translate}}</mat-label>
+                    <mat-select formControlName="methodTwo" name="methodTwo">
+                        <mat-option *ngFor="let method of methodTwos" [value]="method.value">
+                            {{method.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.methodTwo.invalid">
+                        {{'CONFIGURATION.Signal.SignalCal.Method2Mes' | translate}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="currentDialogType != 'diagnose'" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.SignalCal.NewSig' | translate}}</mat-label>
+                    <input formControlName="newSignalName" matInput name="newSignalName" required>
+                    <mat-error *ngIf="form.newSignalName.getError('required')">
+                        {{'CONFIGURATION.Signal.SignalCal.NewSigMes' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="form.newSignalName.getError('maxlength')">
+                        {{'CONFIGURATION.Signal.SignalCal.NewSigMax' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="currentDialogType == 'diagnose'" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.SignalCal.Out' | translate}}</mat-label>
+                    <mat-select formControlName="outputSignalId" name="outputSignalId" required>
+                        <mat-option *ngFor="let signal of outputSignals" [value]="signal.signalId">
+                            {{signal.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.outputSignalId.invalid">
+                        {{'CONFIGURATION.Signal.SignalCal.OutputMes' | translate}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+        <div *ngIf="currentDialogType != 'diagnose'">
+            <mat-form-field ppearance="outline" fxFlex>
+                <input [(ngModel)]="result" matInput readonly>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+
+        <button (click)="matDialogRef.close()" aria-label="Close" color="teriary" mat-raised-button
+                title="{{'ACTION.Close' | translate}}">
+            {{'ACTION.Close' | translate}}
+        </button>
+        <button (click)="onAdd()" [disabled]="!valid" aria-label="SAVE" color="primary"
+                mat-raised-button title="{{'ACTION.Add' | translate}}">
+            {{'ACTION.Add' | translate}}
+        </button>
+
+    </div>
+</div>

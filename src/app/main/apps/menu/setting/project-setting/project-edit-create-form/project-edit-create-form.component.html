@@ -1,0 +1,72 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <form [formGroup]="projectForm">
+            <div>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>{{ 'PROJECT.ECForm.Name' | translate }}</mat-label>
+                        <input formControlName="projectName" matInput name="projectName" required>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>{{ 'PROJECT.ECForm.Valid' | translate }}</mat-label>
+                        <input [matDatepicker]="picker" formControlName="time" matInput name="time" readonly>
+                        <!-- <input matInput [matDatepicker]="picker" placeholder="Choose a date"> -->
+                        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>{{ 'PROJECT.ECForm.Address' | translate }}</mat-label>
+                        <input formControlName="address" matInput name="address">
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+
+                    <label class="custom-label">{{ 'PROJECT.ECForm.Image' | translate }}</label>
+                    <div class="component-file-selector show-file-name " data-plugin="moduleFileSelector">
+                        <div class="file-selector-wrapper">
+                            <button (click)="inputPicture.click()" class="button-custom" color="light" mat-raised-button
+                                    type="button"
+                                    title="{{pictureUpload?.name || 'PROJECT.ECForm.Browse' | translate}}">{{pictureUpload?.name || 'PROJECT.ECForm.Browse' | translate}}
+                            </button>
+                            <input #inputPicture (change)="onPictureSelect($event)" accept=".gif,.jpg,.jpeg,.png"
+                                   formControlName="image" hidden id="file" name="file" type="file"/>&nbsp;
+                            <img *ngIf="pictureSrc != 'data:image/jpeg;base64,null'" src="{{pictureSrc}}"
+                                 class="img-area">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close dialog" class="mr-8" color="teriary" mat-raised-button
+                title="{{ 'ACTION.Close' | translate }}">
+            {{ 'ACTION.Close' | translate }}
+        </button>
+        <button (click)="ngAction()" *ngIf="action !== 'edit'" [disabled]="projectForm.invalid" aria-label="CREATE"
+                class="create-button" color="primary" mat-raised-button title="{{ 'ACTION.Create' | translate }}">
+            {{ 'ACTION.Create' | translate }}
+        </button>
+        <button (click)="ngAction()" *ngIf="action === 'edit'" [disabled]="projectForm.invalid" aria-label="SAVE"
+                class="save-button" color="primary" mat-raised-button title="{{ 'ACTION.Save' | translate }}">
+            {{ 'ACTION.Save' | translate }}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+#error-history {
+    // mat-form-field {
+    //     line-height: 2 !important;
+    // }
+
+    .error-history-result {
+        mat-expansion-panel {
+            border-radius: 0;
+            border-top: 2px solid black;
+
+            &.mat-expansion-panel-spacing {
+                margin: 0;
+            }
+
+            mat-expansion-panel-header {
+                border: 2px solid black;
+                border-top: 0;
+                font-weight: 600;
+            }
+        }
+
+        .mat-row:nth-child(odd) {
+            background-color: #b3f0ff;
+        }
+
+        ::ng-deep .mat-expansion-panel-body {
+            padding: 3px 0 !important;
+        }
+
+        ::ng-deep .mat-sort-header-button {
+            text-transform: none !important;
+        }
+
+        .mat-header-cell {
+            font-size: 13px;
+        }
+    }
+
+    .mat-datepicker-toggle {
+        font-size: 23px !important;
+    }
+
+    fieldset {
+        &.error-history-filter {
+            width: 100%;
+            background-color: white;
+
+            mat-label {
+                padding-right: 10px;
+            }
+
+            .signalid-selector {
+                width: 90px;
+            }
+        }
+    }
+
+    .error-history-result {
+        padding: 10px;
+    }
+}

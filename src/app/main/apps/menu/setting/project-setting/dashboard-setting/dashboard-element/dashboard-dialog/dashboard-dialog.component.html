@@ -1,0 +1,395 @@
+<ng-container [ngTemplateOutlet]="currentTemplate"></ng-container>
+
+<!-- =================================================== TEXT ==================================================================== -->
+<ng-template #textDialog>
+    <ng-container>
+        <div class="dialog-content-wrapper" id="dashboard-dialog">
+            <mat-toolbar class="mat-accent m-0" matDialogTitle>
+                <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                    <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.Text' | translate}}</span>
+                    <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+
+            <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+                <form [formGroup]="dashboardForm">
+                    <mat-form-field class="input-text">
+                        <input formControlName='text' matInput
+                               placeholder="{{'PROJECT.Dashboard.Mes.plcHolderText' | translate}}" type="text"
+                               required/>
+                    </mat-form-field>
+                </form>
+            </div>
+
+            <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+                <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                        color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                    {{'ACTION.OK' | translate}}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+<!-- =================================================== SIGNAL_POINT ==================================================================== -->
+<ng-template #signalPointDialog>
+    <ng-container>
+        <div class="dialog-content-wrapper" id="dashboard-dialog">
+            <mat-toolbar class="mat-accent m-0" matDialogTitle>
+                <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                    <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.SigPoint' | translate}}</span>
+                    <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+
+            <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+                <form [formGroup]="dashboardForm">
+                    <mat-form-field class="input-signal">
+                        <mat-label>{{'PROJECT.Dashboard.Mes.labelSelectSignal' | translate}}</mat-label>
+                        <mat-select formControlName="signalName" required>
+                            <mat-option disabled value="">{{'PROJECT.Dashboard.Mes.plcHolderSigPoint' | translate}}
+                            </mat-option>
+                            <mat-option *ngFor="let signal of signalList" value="{{signal.name}}">
+                                {{signal.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+
+            <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+                <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                        color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                    {{'ACTION.OK' | translate}}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+<!-- =================================================== DOCUMENT_LINK ==================================================================== -->
+<ng-template #docLinkDialog>
+    <ng-container>
+        <div class="dialog-content-wrapper" id="dashboard-dialog">
+            <mat-toolbar class="mat-accent m-0" matDialogTitle>
+                <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                    <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.Document' | translate}}</span>
+                    <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+
+            <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+                <form [formGroup]="dashboardForm">
+                    <mat-form-field class="input-text">
+                        <mat-label>{{'PROJECT.Dashboard.Mes.labelDoc_Name' | translate}}</mat-label>
+                        <input formControlName='title' matInput
+                               placeholder="{{'PROJECT.Dashboard.Mes.plcHolderText' | translate}}" type="text"
+                               required/>
+                    </mat-form-field>
+                    <mat-form-field class="input-text">
+                        <mat-label>{{'PROJECT.Dashboard.Mes.labelDoc_Link' | translate}}</mat-label>
+                        <input formControlName='link' matInput
+                               placeholder="{{'PROJECT.Dashboard.Mes.plcHolderText' | translate}}" type="text"/>
+                    </mat-form-field>
+                </form>
+            </div>
+
+            <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+                <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                        color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                    {{'ACTION.OK' | translate}}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+<!-- =================================================== CATALOG_ITEM ==================================================================== -->
+<ng-template #catalogItemDialog>
+    <ng-container>
+        <div class="dialog-content-wrapper" id="dashboard-dialog">
+            <mat-toolbar class="mat-accent m-0" matDialogTitle>
+                <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                    <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.Catalog.Catalog' | translate}}</span>
+                    <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+
+            <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+                <form [formGroup]="dashboardForm">
+                    <mat-form-field class="input-text">
+                        <mat-label>{{'PROJECT.Dashboard.Mes.labelCatalog' | translate}}</mat-label>
+                        <mat-select formControlName="cataName" required>
+                            <mat-option *ngFor="let cata of cataList" [value]="cata.name">
+                                {{ cata.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+
+            <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+                <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                        color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                    {{'ACTION.OK' | translate}}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+<!-- =================================================== PICTURE ==================================================================== -->
+<ng-template #pictureDialog>
+    <ng-container>
+        <div class="dialog-content-wrapper" id="dashboard-dialog">
+            <mat-toolbar class="mat-accent m-0" matDialogTitle>
+                <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                    <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.Picture' | translate}}</span>
+                    <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+
+            <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+                <form [formGroup]="dashboardForm">
+                    <label class="custom-label">{{'PROJECT.Dashboard.Mes.labelPicture' | translate}} <label
+                        class="required">*</label></label>
+                    <div class="component-file-selector show-file-name " data-plugin="moduleFileSelector">
+                        <div class="file-selector-wrapper">
+                            <button (click)="inputPicture.click()" class="button-custom" color="light" mat-raised-button
+                                    type="button">{{pictureUpload?.name || 'CONFIGURATION.Signal.DiaglogEdit.BrowsePic' | translate}}
+                            </button>
+                            <input #inputPicture (change)="onPictureSelect($event)" accept=".gif,.jpg,.jpeg,.png,.webp"
+                                   hidden id="file" name="file" type="file"/>&nbsp;
+                            <!-- <div [ngClass]="{'file-active': isShowed}" class="file-name-container">
+                              <span class="file-name">{{ pictureUpload?.name }}</span>
+                            </div> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+                <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                        color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                    {{'ACTION.OK' | translate}}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+<!-- =================================================== LINE CHART HISTORICAL ==================================================================== -->
+<ng-template #lineHistoryDialog>
+    <div class="dialog-content-wrapper" id="dashboard-dialog">
+        <mat-toolbar class="mat-accent m-0" matDialogTitle>
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.ChartHis' | translate}}</span>
+                <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+            <form [formGroup]="dashboardForm" fxLayout="column">
+                <div>
+                    <mat-form-field>
+                        <mat-label>{{'PROJECT.Dashboard.Mes.labelSelectSignals' | translate}}</mat-label>
+                        <mat-select disableOptionCentering formControlName='name' matNativeControl multiple
+                                    panelClass="error-history-id-selector" (selectionChange)="signalSelectChange()"
+                                    required>
+                            <mat-option *ngFor="let signal of signalList"
+                                        value="{{signal.name}}">
+                                {{signal.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+
+        <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+            <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                    color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                {{'ACTION.OK' | translate}}
+            </button>
+        </div>
+    </div>
+</ng-template>
+<!-- =================================================== LINE CHART INTENSIVE ==================================================================== -->
+<ng-template #lineIntensiveDialog>
+    <div class="dialog-content-wrapper" id="dashboard-dialog">
+        <mat-toolbar class="mat-accent m-0" matDialogTitle>
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.ChartIntensive' | translate}}</span>
+                <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+            <form [formGroup]="dashboardForm" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
+                <mat-form-field>
+                    <mat-label>{{'PROJECT.Dashboard.Mes.labelSelectSignal' | translate}}</mat-label>
+                    <mat-select disableOptionCentering formControlName='name' matNativeControl
+                                panelClass="error-history-id-selector" required>
+                        <mat-option disabled value="">{{'PROJECT.Dashboard.Mes.plcHolderSigPoint' | translate}}
+                        </mat-option>
+                        <mat-option *ngFor="let signal of signalList" value="{{signal.name}}">{{signal.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </div>
+
+        <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+            <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                    color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                {{'ACTION.OK' | translate}}
+            </button>
+        </div>
+    </div>
+</ng-template>
+<!-- =================================================== LINE CHART REALTIME ==================================================================== -->
+<ng-template #lineRealtimeDialog>
+    <div class="dialog-content-wrapper" id="dashboard-dialog">
+        <mat-toolbar class="mat-accent m-0" matDialogTitle>
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.ChartReal' | translate}}</span>
+                <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+            <form [formGroup]="dashboardForm" fxLayout="column">
+                <div>
+                    <mat-form-field>
+                        <mat-label>{{'PROJECT.Dashboard.Mes.labelSelectSignals' | translate}}</mat-label>
+                        <mat-select disableOptionCentering formControlName='name' matNativeControl multiple
+                                    panelClass="error-history-id-selector" (selectionChange)="signalSelectChange()"
+                                    required>
+                            <mat-option *ngFor="let signal of signalList"
+                                        value="{{signal.name}}">
+                                {{signal.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+
+        <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+            <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                    color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                {{'ACTION.OK' | translate}}
+            </button>
+        </div>
+    </div>
+</ng-template>
+<!-- =================================================== BAR CHART ==================================================================== -->
+<ng-template #barDialog>
+    <div class="dialog-content-wrapper" id="dashboard-dialog">
+        <mat-toolbar class="mat-accent m-0" matDialogTitle>
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.ChartBar' | translate}}</span>
+                <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+            <form [formGroup]="dashboardForm" fxLayout="column">
+                <div>
+                    <mat-form-field>
+                        <mat-label>{{'PROJECT.Dashboard.Mes.labelSelectSignal' | translate}}</mat-label>
+                        <mat-select disableOptionCentering formControlName='name' matNativeControl multiple
+                                    panelClass="error-history-id-selector" required>
+                            <mat-option #allSelected (click)="toggleAllSelection()" [value]="0">
+                                Select All
+                            </mat-option>
+                            <mat-option (click)="togglePerSelection()" *ngFor="let signal of signalList"
+                                        value="{{signal.name}}">
+                                {{signal.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+
+        <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+            <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                    color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                {{'ACTION.OK' | translate}}
+            </button>
+        </div>
+    </div>
+</ng-template>
+<!-- =================================================== SCHEMATIC ==================================================================== -->
+<ng-template #schematicDialog>
+    <div class="dialog-content-wrapper" id="dashboard-dialog">
+        <mat-toolbar class="mat-accent m-0" matDialogTitle>
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">{{'PROJECT.Dashboard.Elements.Schematic' | translate}}</span>
+                <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+
+            <form [formGroup]="dashboardForm" fxLayout="column">
+                <mat-form-field>
+                    <mat-label>{{'PROJECT.Dashboard.Mes.labelSchemaName' | translate}}</mat-label>
+                    <input formControlName='schemeName' matInput type="text"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>{{'PROJECT.Dashboard.Mes.labelSelectSignals' | translate}}</mat-label>
+                    <mat-select disableOptionCentering formControlName="spName" matNativeControl multiple>
+                        <mat-option #allSelected (click)="toggleAllSelectionSchematic()" [value]="0">
+                            Select All
+                        </mat-option>
+                        <mat-option (click)="togglePerSelection()" *ngFor="let signal of signalList"
+                                    value="{{signal.signal.name}}">
+                            {{signal.signal.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="input-text">
+                    <mat-label>{{'PROJECT.Dashboard.Mes.labelCatalogs' | translate}}</mat-label>
+                    <mat-select disableOptionCentering formControlName="cataName" matNativeControl multiple>
+                        <mat-option *ngFor="let cata of cataList" [value]="cata.name">
+                            {{cata.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <button (click)="inputPicture.click()" class="button-custom" color="light" mat-raised-button
+                        type="button"
+                        title="{{pictureUpload?.name || 'CONFIGURATION.Signal.DiaglogEdit.BrowsePic' | translate}}">{{pictureUpload?.name || 'CONFIGURATION.Signal.DiaglogEdit.BrowsePic' | translate}}
+                </button>
+                <input #inputPicture (change)="onPictureSelect($event)" accept=".gif,.jpg,.jpeg,.png,.webp" hidden
+                       type="file"/>&nbsp;
+            </form>
+        </div>
+
+        <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+            <button (click)="onSave()" [disabled]="!dashboardForm.valid" aria-label="SAVE" class="ok-button"
+                    color="primary" mat-button mat-raised-button type="submit" title="{{'ACTION.OK' | translate}}">
+                {{'ACTION.OK' | translate}}
+            </button>
+        </div>
+    </div>
+</ng-template>

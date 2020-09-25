@@ -1,0 +1,190 @@
+<div class="page-layout simple page-layout-custom" id="signal-setting">
+
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <div fxLayout="row" fxLayoutAlign="space-between flex-start">
+            <div style="width: 50%">
+                <form [formGroup]="importForm" name="loginForm">
+                    <h3 class="custom-title-import">{{'CONFIGURATION.Signal.Import' | translate}}</h3>
+                    <div class="import-file">
+                        <div class="component-file-selector show-file-name " data-plugin="moduleFileSelector">
+                            <div class="form-group">
+                                <div class="file-selector-wrapper">
+                                    <button (click)="inputFile.click()" class="button-custom" color="light"
+                                        mat-raised-button type="button"
+                                        title="{{'CONFIGURATION.Signal.File' | translate}}">{{'CONFIGURATION.Signal.File' | translate}}
+                                    </button>
+                                    <input #inputFile (change)="onFileSelectChange($event)" class="file-selector" hidden
+                                        id="file" name="file" type="file"
+                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                                    <div [ngClass]="{'file-active': isShowed}" class="file-name-container">
+                                        <span class="file-name">{{importFileName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button (click)="importFile()" *ngIf="isShowed" [disabled]="importForm.invalid"
+                            aria-label="Upload" class="signal-setting" color="dark" mat-raised-button type="button"
+                            title="{{'ACTION.Import' | translate}}">
+                            {{'ACTION.Import' | translate}}
+                        </button>
+                        <mat-error *ngIf="wrongType">{{'CONFIGURATION.Signal.ImportMessage' | translate}}</mat-error>
+                    </div>
+
+                </form>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 40%;">
+                <mat-form-field floatLabel="never" style="width: 80%">
+                    <mat-placeholder class="label-custom" floatLabel="never">
+                        <label class="field-label" style="color: #5A7C91">
+                            {{'CONFIGURATION.Signal.Calculation.LabelCalculation' | translate}} </label>
+                    </mat-placeholder>
+                    <mat-select [(ngModel)]="createSelected" class="custom-select" disableOptionCentering
+                        matNativeControl panelClass="myPanelClass" required>
+                        <mat-option value="normal">{{'CONFIGURATION.Signal.Calculation.Normal' | translate}}
+                        </mat-option>
+                        <mat-option value="fault">{{'CONFIGURATION.Signal.Calculation.Fault' | translate}}</mat-option>
+                        <mat-option value="diagnose">{{'CONFIGURATION.Signal.Calculation.Diagnose' | translate}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button (click)="newCalculationSignal()" [disabled]="createSelected == ''" aria-label="Create"
+                    class="signal-setting" color="dark" mat-raised-button
+                    title="{{'ACTION.Create' | translate}}">{{'ACTION.Create' | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="signal-area" fxLayout="row" fxLayoutAlign="start center">
+            <h1>{{'CONFIGURATION.Signal.Title' | translate}}</h1>
+            <button (click)="createSignal()" class="create-signal-button" color="light" mat-raised-button
+                title="{{'ACTION.Create_Signal' | translate}}">
+                <mat-icon>playlist_add</mat-icon>
+            </button>
+            <button (click)="editHealthySignal()" class="edit-healthy-button" color="light" mat-raised-button
+                title="{{'ACTION.Assign_Healthy' | translate}}">
+                <mat-icon>check_circle</mat-icon>
+            </button>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center">
+            <div>
+                <mat-table #table
+                    [dataSource]="signalData | paginate: { id:'signal', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+                    class="mat-elevation-z8">
+                    <!--ID-->
+                    <ng-container matColumnDef="cmd">
+                        <mat-header-cell *matHeaderCellDef>
+                            <label>{{'CONFIGURATION.Signal.Table.CMD' | translate}}</label></mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.cmd ? item.cmd : ''}} </mat-cell>
+                    </ng-container>
+                    <!--ID-->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef>
+                            <label>{{'CONFIGURATION.Signal.Table.ID' | translate}}</label></mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.signalId}} </mat-cell>
+                    </ng-container>
+                    <!--ID-->
+                    <ng-container matColumnDef="sigName">
+                        <mat-header-cell *matHeaderCellDef><label> {{'CONFIGURATION.Signal.Table.Name' | translate}}
+                            </label></mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.name}} </mat-cell>
+                    </ng-container>
+                    <!--ID-->
+                    <ng-container matColumnDef="desc">
+                        <mat-header-cell *matHeaderCellDef><label> {{'CONFIGURATION.Signal.Table.Des' | translate}}
+                            </label></mat-header-cell>
+                        <mat-cell *matCellDef="let item">
+                            <div *ngIf="item.descriptions && !item.descriptions.includes('<')"> {{item.descriptions}}
+                            </div>
+                            <div *ngIf="item.descriptions && item.descriptions.includes('<')">
+                                <button (click)="onMoreClick(item.name, item.descriptions)" class="button-custom"
+                                    color="teriary" mat-raised-button type="button"
+                                    title="{{'ACTION.More' | translate}}">{{'ACTION.More' | translate}}</button>
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+                    <!--ID-->
+                    <ng-container matColumnDef="sigType">
+                        <mat-header-cell *matHeaderCellDef><label> {{'CONFIGURATION.Signal.Table.Type' | translate}}
+                            </label></mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.signalType}} </mat-cell>
+                    </ng-container>
+                    <!--ID-->
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef><label> {{'CONFIGURATION.Signal.Table.Act' | translate}}
+                            </label></mat-header-cell>
+                        <mat-cell *matCellDef="let item">
+                            <button (click)="editSignal(item.name)" class="button-custom" color="secondary"
+                                mat-raised-button type="button"
+                                title="{{'ACTION.Edit' | translate}}">{{'ACTION.Edit' | translate}}
+                            </button>&nbsp;
+                            <button (click)="deleteSignal(item.name)" class="button-custom" color="teriary"
+                                mat-raised-button type="button"
+                                title="{{'ACTION.Delete' | translate}}">{{'ACTION.Delete' | translate}}
+                            </button> &nbsp;
+                            <button (click)="onTrigger(item.name)" class="button-custom" color="secondary"
+                                mat-raised-button type="button" *ngIf="item.triggerType == 'MANUAL'"
+                                title="{{'ACTION.Trigger' | translate}}">{{'ACTION.Trigger' | translate}}
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+
+            </div>
+            <div class="rcm-pagination" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <span>{{ 'ACTION.RESULTS_PER_PAGE' | translate }}: </span>
+                    <ul class="rcm-pagination-list">
+                        <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                        <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                        <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                        <li (click)="onItemPerPage(100)" [class.current]="itemsPerPage==100"><a>100</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true" [nextLabel]="''"
+                        [previousLabel]="''" id='signal'></pagination-controls>
+                    <button (click)="onExport()" [disabled]="isExporting" color="dark" mat-raised-button
+                        style="float:right;" *ngIf="!isNoData"
+                        title="{{'ACTION.Export' | translate}}">{{'ACTION.Export' | translate}}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+
+
+<!-- =================================================== CATALOG DESCRIPTION  DIALOG==================================================================== -->
+<ng-template #descDialog>
+    <div class="dialog-content-wrapper" id="chart-option-dialog">
+        <mat-toolbar class="mat-accent m-0" matDialogTitle>
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title">{{currentName}} description</span>
+                <button aria-label="Close dialog" mat-icon-button matDialogClose>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="p-24 pb-0 m-0 catalog-description" fusePerfectScrollbar mat-dialog-content
+            [innerHTML]="currentDesc">
+
+        </div>
+
+        <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+            <button (click)="descDialogRef.close()" color="primary" mat-button mat-raised-button type="button"
+                title="{{'ACTION.OK' | translate}}">
+                {{'ACTION.OK' | translate}}
+            </button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,39 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary=".boundary-container" class="line-historical">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <form [formGroup]="chartForm">
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="10px">
+            <div>
+                <mat-form-field>
+                    <mat-label>Date range</mat-label>
+                    <input (dateInput)="fromDateEvent($event.value)" [matDatepicker]="fromDate"
+                           formControlName='dateFrom' matInput
+                           placeholder="{{'PROJECT.Dashboard.Mes.plcHolderDate' | translate}}">
+                    <mat-datepicker-toggle [for]="fromDate" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #fromDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>To</mat-label>
+                    <input (dateInput)="toDateEvent($event.value)" [matDatepicker]="toDate" formControlName='dateTo'
+                           matInput placeholder="{{'PROJECT.Dashboard.Mes.plcHolderDate' | translate}}">
+                    <mat-datepicker-toggle [for]="toDate" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #toDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <button (click)="onFilter()" color="primary" mat-raised-button title="{{'ACTION.Filter' | translate}}">
+                <mat-icon>filter_list_alt</mat-icon>
+            </button>
+        </div>
+    </form>
+    <echarts *ngIf="!loading"
+             [options]="chartOptions" style="width: 100%; height: 85%; display: block;">
+    </echarts>
+</div>

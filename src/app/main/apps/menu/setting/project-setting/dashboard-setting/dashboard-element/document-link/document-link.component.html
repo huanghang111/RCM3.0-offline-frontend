@@ -1,0 +1,15 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary=".boundary-container" style="width: max-content">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <div *ngIf="(titleLink && titleLink.length > 0) && (link && link.length > 0)">
+        <button color="secondary" mat-button mat-raised-button type="button" (click)="navigate()">
+            {{ titleLink }}
+        </button>
+    </div>
+</div>

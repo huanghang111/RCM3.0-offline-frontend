@@ -1,0 +1,16 @@
+<div class="page-layout simple page-layout-custom">
+    <div class="div-parent" fxLayout="row">
+        <mat-grid-list cols="4" rowHeight="2:1">
+            <!-- project component -->
+            <div *ngFor="let document of documents" class="component-doc">
+                <app-document-detail (edited)="loadAllDocuments($event)" [document]="document"></app-document-detail>
+            </div>
+        </mat-grid-list>
+        <!-- add button -->
+        <div class="button-area">
+            <button (click)="createDocument(null)" color="light" mat-raised-button title="{{'ACTION.Add' | translate}}">
+                <mat-icon>cloud_upload</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

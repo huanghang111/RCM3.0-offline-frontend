@@ -1,0 +1,25 @@
+<div class="dialog-content-wrapper" id="comfirm-dialog">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{confirmHeader}}</span>
+            <button (click)="dialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        {{confirmMessage}}
+    </div>
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="dialogRef.close(false)" color="teriary"
+                mat-raised-button>{{ 'ACTION.Cancel' | translate }}</button>
+        <button (click)="dialogRef.close(true)" class="mat-accent" color="primary"
+                mat-raised-button>{{ 'ACTION.Delete' | translate }}</button>
+    </div>
+    <!-- <h1 matDialogTitle>{{confirmHeader}}</h1>
+    <div mat-dialog-content>{{confirmMessage}}</div>
+    <div class="pt-24 custom-align" mat-dialog-actions>
+        <button (click)="dialogRef.close(false)" color="teriary" mat-raised-button>Cancel</button>
+        <button (click)="dialogRef.close(true)" class="mat-accent" color="primary" mat-raised-button>Delete</button>
+    </div> -->
+</div>

@@ -1,0 +1,23 @@
+<div class="page-layout simple page-layout-custom">
+    <div class="div-parent" fxLayout="row">
+        <mat-grid-list cols="4" rowHeight="2:1">
+            <!-- project component -->
+            <div *ngFor="let project of projects" class="component-project">
+                <app-project-detail (edited)="loadAllProject($event)" [project]="project">
+                </app-project-detail>
+            </div>
+
+        </mat-grid-list>
+        <!-- add button -->
+        <div class="button-add-area">
+            <button (click)="createProject(null)" color="light" mat-raised-button title="{{'ACTION.Add' | translate}}">
+                <mat-icon>add_box</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="div-between" fxLayout="row">
+        <app-document-setting></app-document-setting>
+    </div>
+
+</div>

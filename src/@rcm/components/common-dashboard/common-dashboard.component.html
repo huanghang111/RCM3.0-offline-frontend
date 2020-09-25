@@ -1,0 +1,48 @@
+<mat-card class="custom-mat-card">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+        <h3 class="title">{{dashboard.name}}</h3>
+        <div *ngIf="settingMode" class="action">
+            <button [matMenuTriggerFor]="dashboardMenu" class="button-list" color="dark" mat-raised-button
+                    title="{{ 'ACTION.ACTION' | translate }}">
+                <mat-icon>list</mat-icon>
+            </button>
+            <mat-menu #dashboardMenu="matMenu" [overlapTrigger]="false">
+                <button (click)="editDashboard(dashboard.id)" mat-menu-item title="{{'ACTION.Edit' | translate}}">
+                    <mat-icon>edit</mat-icon>
+                    <span>{{'ACTION.Edit' | translate}}</span>
+                </button>
+                <button (click)="deleteDashboard(dashboard.id, dashboard.name)" mat-menu-item
+                        title="{{'ACTION.Remove' | translate}}">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>{{'ACTION.Remove' | translate}}</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+    <hr>
+    <div class="content">
+        <img class="img-screenshot" src="{{dashboard.image}}"/>
+    </div>
+    <hr>
+    <div *ngIf="settingMode" class="add-slide">
+        <mat-checkbox (change)="onCheckbox($event, dashboard.id)" [(ngModel)]="dashboard.addSlide"
+                      title="{{'PROJECT.Dashboard.SlideAct' | translate}}">
+            {{'PROJECT.Dashboard.SlideAct' | translate}}
+        </mat-checkbox>
+        <mat-form-field class="input-mins">
+            <input [(ngModel)]="dashboard.delayTime"
+                   [disabled]="!currentCheckboxState"
+                   (input)="onInputChange()" matInput min="10" placeholder="Seconds" type="number">
+        </mat-form-field>&nbsp;&nbsp;
+        <button (click)="onSaveTime(dashboard.id, dashboard.delayTime)" *ngIf="!hideSaveBtn" class="button-save"
+                color="primary" mat-raised-button>
+            <mat-icon>save</mat-icon>
+        </button>
+    </div>
+    <div *ngIf="!settingMode" class="dashboard-area">
+        <button (click)="viewDetail(dashboard.id)" class="dashboard-button" color="teriary" mat-raised-button
+                title="{{ 'PROJECT.Dashboard.ViewDash' | translate }}">
+            <mat-icon>insert_chart</mat-icon>
+        </button>
+    </div>
+</mat-card>

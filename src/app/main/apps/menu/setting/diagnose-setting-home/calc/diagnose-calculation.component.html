@@ -1,0 +1,23 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{_data.signalName}} {{'DIAGNOSE.Calc.Formular' | translate}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <div fxLayout="row" class="oval-wrapper" *ngIf="signalOne">
+            <div *ngIf="methodOne === '-'">{{methodOne}} {{signalOne}}</div>
+            <div *ngIf="methodOne !== '-'">{{signalOne}} {{methodOne}}</div>
+            <div *ngIf="signalTwo" style="padding-left: 10px">{{methodTwo}} {{signalTwo}}</div>
+            <span style="font-size:50px; padding:0 5px;">&#8594;</span>
+            <div>{{_data.signalName}}</div>
+        </div>
+        <div fxLayout="row" class="oval-wrapper" *ngIf="!signalOne">
+            {{'SIGNAL.Points.NoData' | translate}}
+        </div>
+    </div>
+</div>

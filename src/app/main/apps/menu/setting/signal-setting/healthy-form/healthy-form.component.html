@@ -1,0 +1,34 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{'CONFIGURATION.Signal.HealthyForm.Title' | translate}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar fxLayout="column" fxLayoutGap="10px" mat-dialog-content>
+        <mat-label>{{'CONFIGURATION.Signal.HealthyForm.Note' | translate}}</mat-label>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap='10px'>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>{{'CONFIGURATION.Signal.HealthyForm.SignalLabel' | translate}}</mat-label>
+                <mat-select [(ngModel)]="currentHealthy" required>
+                    <mat-option *ngFor="let name of signalNames" [value]="name">
+                        {{name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close" color="teriary" mat-raised-button
+                title="{{'ACTION.Close' | translate}}">
+            {{'ACTION.Close' | translate}}
+        </button>
+        <button (click)="onSet()" aria-label="SAVE" color="primary" mat-raised-button
+                title="{{'ACTION.Set' | translate}}">
+            {{'ACTION.Set' | translate}}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<mat-card class="intensive-signal">
+    <div class="content-area">
+        <h3 class="name" title="{{data.name}}">{{data.name}}</h3>
+        <div class="info">
+            <button (click)="onInfo()" aria-label="remove element" class="custom-button" mat-icon-button
+                    title="{{'SIGNAL.Intensive.Info.Info' | translate}}" type="button">
+                <mat-icon>info</mat-icon>
+            </button>
+            <button (click)="onTrigger(data.name)" aria-label="remove element" class="custom-button" mat-icon-button
+                    title="{{'SIGNAL.Intensive.Info.Trigger' | translate}}" type="button"
+                    *ngIf="data.triggerType == 'MANUAL'">
+                <mat-icon>autorenew</mat-icon>
+            </button>
+        </div>
+    </div>
+</mat-card>

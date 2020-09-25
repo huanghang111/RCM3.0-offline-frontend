@@ -1,0 +1,54 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div *ngIf="this.isNoData(); then showBlank else showData"></div>
+    <ng-template #showBlank>
+        <div class="p-24 pb-0 m-0" fusePerfectScrollbar fxLayout="row" fxLayoutAlign="space-evenly start"
+             mat-dialog-content>
+            <h3>{{'RELATED.mes1' | translate}}</h3>
+        </div>
+    </ng-template>
+    <ng-template #showData>
+        <div class="p-24 pb-0 m-0" fusePerfectScrollbar fxLayout="row" fxLayoutAlign="space-evenly start"
+             mat-dialog-content style="width: 1530px">
+            <div fxLayout="column" style="width: 45%">
+                <div *ngIf="intensiveData.length<=0; then noIntens else intens"></div>
+                <ng-template #noIntens>
+                    <h3>{{'RELATED.mes2' | translate}}</h3>
+                </ng-template>
+                <ng-template #intens>
+                    <h2 style="width: 100%">Intensive data</h2>
+                    <div *ngFor="let intensive of intensiveData" fxLayout="column">
+                        <app-common-chart [chartData]="createChartData(intensive)"></app-common-chart>
+                        <br/>
+                    </div>
+                </ng-template>
+            </div>
+            <div fxLayout="column" style="width: 45%">
+                <div *ngIf="pointData.length<=0; then noPoint else point"></div>
+                <ng-template #noPoint>
+                    <h3>{{'RELATED.mes3' | translate}}</h3>
+                </ng-template>
+                <ng-template #point>
+                    <h2 style="width: 100%">Point data</h2>
+                    <div *ngFor="let point of pointData" fxLayout="column">
+                        <app-common-chart [chartData]="createChartDataPoint(point)"
+                                          fxLayout="column"></app-common-chart>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </ng-template>
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close dialog" color="teriary" mat-raised-button
+                title="{{'ACTION.Close' | translate}}">{{'ACTION.Close' | translate}}
+        </button>
+    </div>
+</div>

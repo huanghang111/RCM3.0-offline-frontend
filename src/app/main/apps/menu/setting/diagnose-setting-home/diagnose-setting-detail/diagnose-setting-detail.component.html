@@ -1,0 +1,62 @@
+<div class="page-layout simple page-layout-custom" id="diagnose-setting-detail">
+    <div class="p-24">
+        <div fxLayout="column" fxLayoutAlign="center">
+            <h2 class="title">{{'MENU.Diagnose' | translate}}: {{faultName}}</h2>
+            <div fxLayout="row" fxLayoutAlign="center center" class="button-action">
+                <div class="back-diagnose">
+                    <button (click)="onBack()" class="button-custom" color="light"
+                            mat-raised-button type="button"
+                            title="{{'ACTION.Back' | translate}}">{{'ACTION.Back' | translate}}
+                    </button>
+                </div>
+                <div class="add-diagnose">
+                    <button (click)="editDiagnoseDetail('action', null)" class="button-custom" color="secondary"
+                            mat-raised-button type="button"
+                            title="{{'CONFIGURATION.Diagnose.Add' | translate}}">{{'CONFIGURATION.Diagnose.Add' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="center">
+            <div>
+                <mat-table #table [dataSource]="diagnoseInstances" class="mat-elevation-z8">
+                    <!--CAL-OUTPUT-->
+                    <ng-container matColumnDef="calOutput">
+                        <mat-header-cell *matHeaderCellDef>
+                            <label>{{'CONFIGURATION.Diagnose.TableDiagnose.Out' | translate}}</label></mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.calculationOutput}} </mat-cell>
+                    </ng-container>
+                    <!--DESCRIPTION-->
+                    <ng-container matColumnDef="des">
+                        <mat-header-cell *matHeaderCellDef>
+                            <label>{{'CONFIGURATION.Diagnose.TableDiagnose.DES' | translate}}</label></mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.description}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="operation">
+                        <mat-header-cell *matHeaderCellDef><label>
+                            {{'CONFIGURATION.Diagnose.TableDiagnose.OPERATION' | translate}} </label>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let item">
+                            <button (click)="editDiagnoseDetail('edit',item)" class="button-custom" color="secondary"
+                                    mat-raised-button type="button"
+                                    title="{{'ACTION.Edit' | translate}}">{{'ACTION.Edit' | translate}}
+                            </button>&nbsp;
+                            <button (click)="editStep(item)" class="button-custom" color="secondary" mat-raised-button
+                                    type="button"
+                                    title="{{'CONFIGURATION.Diagnose.StepForm.EditTitle' | translate}}">{{'CONFIGURATION.Diagnose.StepForm.EditTitle' | translate}}
+                            </button>&nbsp;
+                            <button (click)="deleteDiagnoseDetail(item)" class="button-custom" color="teriary"
+                                    mat-raised-button type="button"
+                                    title="{{'ACTION.Delete' | translate}}">{{'ACTION.Delete' | translate}}
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+    </div>
+</div>

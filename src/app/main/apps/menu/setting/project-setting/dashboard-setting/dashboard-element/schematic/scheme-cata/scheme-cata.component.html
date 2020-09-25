@@ -1,0 +1,14 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary="#image-drop-container"
+     style="width: max-content;position: absolute; z-index: 1000;">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <mat-card *ngIf="name" class="point-card" (click)="blink()" [class.blink]="blinkingInput">
+        <a>{{name}}</a>
+    </mat-card>
+</div>

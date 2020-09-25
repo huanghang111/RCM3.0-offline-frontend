@@ -1,0 +1,39 @@
+<div id="slide-dashboard">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div class="button-area">
+            <button (click)="previousDash()" class="previous-button" color="secondary" mat-raised-button>
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+        </div>
+        <div *ngIf="reloadDashboard">
+            <div
+                *ngFor="let id of dashboardIDs | paginate: { id: 'slideArr', itemsPerPage: 1, currentPage: currentSlideNumber, totalItems: dashboardIDs.length };"
+                style="display:none"></div>
+            <app-add-edit-dashboard (onFinishedLoading)="checkLoading($event,'component', currentDashboardID)" 
+            (onFinished30Issue)="checkLoading($event, 'days',currentDashboardID)" (onFinishedNewIssue)="checkLoading($event, 'new',currentDashboardID)" [dashboardID]="currentDashboardID">
+            </app-add-edit-dashboard>
+        </div>
+        <div class="button-area">
+            <button (click)="nextDash()" class="next-button" color="secondary" mat-raised-button>
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" class="display-time-area">
+        <mat-label class="time">{{'PROJECT.Dashboard.Time' | translate}}: {{displayTime}}
+            {{'PROJECT.Dashboard.Sec' | translate}}</mat-label>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <div class="rcm-pagination dashboard-pag">
+            <pagination-controls (pageChange)="onSlideChange($event - 1)" [directionLinks]="true" [nextLabel]="''"
+                                 [previousLabel]="''" id="slideArr" class="bounder"></pagination-controls>
+        </div>
+        <div class="close-area">
+            <button (click)="closeFullscreen()" class="close-button" color="light" mat-raised-button>
+                <span>{{'ACTION.Close' | translate}}</span>&nbsp;
+            </button>
+        </div>
+    </div>
+</div>

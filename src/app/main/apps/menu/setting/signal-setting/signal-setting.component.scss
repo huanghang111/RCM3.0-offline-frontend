@@ -1,0 +1,208 @@
+@import "src/@rcm/scss/fuse";
+
+#signal-setting {
+    .header {
+        position: relative;
+        flex: 1 0 auto;
+        height: 280px;
+        max-height: 280px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    button {
+        &.signal-input-file {
+            border: 1px solid black;
+            height: 35px;
+            cursor: pointer;
+            padding-left: 5px;
+            width: 400px;
+            text-align: left;
+            color: black;
+            background-color: white;
+            font-size: 13px;
+            text-transform: none;
+            font-family: "Bosch Sans Regular", sans-serif !important;
+        }
+
+        &.signal-setting {
+            line-height: 0;
+            height: 40px !important;
+        }
+    }
+
+    .custom-title-import {
+        display: inline-flex;
+        float: left;
+    }
+
+    .import-file {
+        float: left;
+        margin-left: 2%;
+    }
+
+    .component-file-drag-area {
+        width: 100%;
+        max-width: 400px;
+
+        .file-drag-area {
+            background-color: #ffffff;
+            border: 2px dashed #c0ced8;
+            cursor: pointer;
+            min-height: 5.375rem;
+            padding: 30px;
+            position: relative;
+            text-align: center;
+            transition: background-color 0.35s ease-in-out;
+        }
+    }
+
+    .component-file-selector {
+        position: relative;
+        margin-bottom: 5px;
+
+        .show-file-name {
+            .file-selector-wrapper {
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+            }
+        }
+
+        .file-selector-wrapper {
+            display: flex;
+            position: relative;
+        }
+
+        .file-selector {
+            cursor: pointer;
+            font-size: 0;
+            height: 38px;
+            left: 0;
+            opacity: 0;
+            position: absolute;
+            text-indent: -99999px;
+            top: 0;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .file-name-container {
+            border: 1px solid #a3bac8;
+            min-width: 100px;
+            opacity: 0;
+            -ms-flex-order: 2;
+            order: 2;
+            padding: 13px 20px;
+            text-align: center;
+        }
+
+        .file-name {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-active {
+            opacity: 1;
+        }
+    }
+
+    .create-signal-button {
+        height: 30px;
+        line-height: 25px;
+        padding: 0 !important;
+        min-width: 42px;
+        margin-left: 5rem;
+    }
+
+    .edit-healthy-button {
+        height: 30px;
+        line-height: 25px;
+        padding: 0 !important;
+        min-width: 42px;
+        margin-left: 1rem;
+    }
+
+    .mat-column-cmd {
+        flex: 0 0 100px;
+    }
+
+    .mat-column-id {
+        flex: 0 0 150px;
+    }
+
+    .mat-column-sigType {
+        flex: 0 0 150px;
+    }
+
+    .mat-column-sigName {
+        flex: 0 0 300px;
+    }
+}
+
+.button-custom {
+    height: 40px;
+}
+
+.mat-form-field {
+    height: 48px;
+
+    border: 1px solid #ced4da !important;
+    color: #002b49 !important;
+    font-size: 14px !important;
+}
+
+.mat-form-field:hover {
+    height: 48px;
+    color: #002b49 !important;
+    font-size: 14px !important;
+    border: 1px solid #5a7c91 !important;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+    display: none;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+    padding: 0 10px 10px 10px;
+
+    .mat-form-field-flex {
+        padding-top: 5px;
+    }
+}
+
+:host ::ng-deep .mat-form-field-infix {
+    padding-top: 0;
+}
+
+:host ::ng-deep .mat-form-field-label-wrapper {
+    top: -1.27em;
+    padding-top: 0.84375em;
+}
+
+:host ::ng-deep .mat-select-arrow-wrapper {
+    height: 100%;
+    margin-bottom: -2px;
+}
+
+:host ::ng-deep .mat-select-arrow {
+    border: solid #4b697e;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+}
+
+:host ::ng-deep .mat-select-value {
+    margin-right: 0 !important;
+}
+
+.signal-area {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.create-signal-icon {
+    margin-left: 1rem;
+}

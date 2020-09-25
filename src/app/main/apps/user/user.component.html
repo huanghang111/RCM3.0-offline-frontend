@@ -1,0 +1,64 @@
+<div class="page-layout simple page-layout-custom" id="user">
+    <!-- CONTENT -->
+    <div class="content p-24">
+        <h1>{{ 'USER.USER' | translate }}</h1>
+        <div fxLayout="column" fxLayoutAlign="center">
+            <div>
+                <mat-table #table
+                           [dataSource]="userData | paginate: { id:'signal', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+                           class="mat-elevation-z8">
+                    <ng-container matColumnDef="sigName">
+                        <mat-header-cell *matHeaderCellDef><label> {{'USER.Table.Username' | translate}} </label>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.loginName}} </mat-cell>
+                    </ng-container>
+                    <!--ID-->
+                    <ng-container matColumnDef="sigType">
+                        <mat-header-cell *matHeaderCellDef><label> {{'USER.Table.FullName' | translate}} </label>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let item"> {{item.accountName}} </mat-cell>
+                    </ng-container>
+                    <!--ID-->
+                    <ng-container matColumnDef="des">
+                        <mat-header-cell *matHeaderCellDef><label> {{'USER.Table.Project' | translate}} </label>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let item"> [TBD]</mat-cell>
+                    </ng-container>
+                    <!--ID-->
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef><label> {{'USER.Table.Operation' | translate}} </label>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let item">
+                            <button (click)="resetPassword(item)" class="button-custom" color="secondary"
+                                    mat-raised-button
+                                    type="button"
+                                    title="{{'ACTION.Reset_P' | translate}}">{{'ACTION.Reset_P' | translate}}
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+
+            </div>
+            <div class="rcm-pagination" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <span>{{ 'ACTION.RESULTS_PER_PAGE' | translate }}: </span>
+                    <ul class="rcm-pagination-list">
+                        <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                        <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                        <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                        <li (click)="onItemPerPage(100)" [class.current]="itemsPerPage==100"><a>100</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true" [nextLabel]="''"
+                                         [previousLabel]="''" id='signal'></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+        <!-- / CONTENT -->
+    </div>
+</div>

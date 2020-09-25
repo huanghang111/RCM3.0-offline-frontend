@@ -1,0 +1,58 @@
+<div id="export-form" class="page-layout simple page-layout-custom">
+    <div fxLayout="row" fxLayoutAlign="center center" class="export-area">
+        <mat-card>
+            <mat-card-title class="export-title">
+                <h2>{{ 'CONFIGURATION.Export.Title' | translate }}</h2>
+            </mat-card-title>
+            <mat-card-content class="export-content">
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-form-field class='custom-form'>
+                        <mat-label>{{ 'CONFIGURATION.Export.SignalLabel' | translate }}</mat-label>
+                        <mat-select multiple [(ngModel)]="selectedSignals" required>
+                            <mat-option #allSelected (click)="toggleAllSelection()" [value]="0">
+                                Select All
+                            </mat-option>
+                            <mat-option (click)="togglePerSelection()" *ngFor="let signal of signalList"
+                                        [value]="signal.name">{{signal.name}}
+                                ({{signal.signalId}})
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-form-field class='custom-form'>
+                        <mat-label>{{ 'CONFIGURATION.Export.From' | translate }}</mat-label>
+                        <input [matDatepicker]="fromDate" (dateInput)="fromDateEvent($event.value)" matInput
+                               placeholder="Choose a date" [readonly]="true" [ngModel]="dateFrom" required>
+                        <mat-datepicker-toggle [for]="fromDate" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #fromDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-form-field class='custom-form'>
+                        <mat-label>{{ 'CONFIGURATION.Export.To' | translate }}</mat-label>
+                        <input [matDatepicker]="toDate" (dateInput)="toDateEvent($event.value)" matInput
+                               placeholder="Choose a date" [readonly]="true" [ngModel]="dateTo" required>
+                        <mat-datepicker-toggle [for]="toDate" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #toDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="exportType">
+                        <mat-radio-button value="excel" class="radio-excel">EXCEL</mat-radio-button>
+                        <mat-radio-button value="json">JSON</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </mat-card-content>
+            <mat-card-actions class="export-action">
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <button color="primary" mat-raised-button (click)="onExport()" [disabled]="isDisable"
+                            title="{{ 'ACTION.Export' | translate }}">
+                        {{ 'ACTION.Export' | translate }}
+                    </button>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

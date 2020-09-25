@@ -1,0 +1,20 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary="#image-drop-container"
+     style="width: max-content;position: absolute; z-index: 1000;">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <div *ngIf="name && currentPoint" (click)="blink()" [class.blink]="blinkingInput">
+        <span [style.color]="getColor(currentPoint.danger)" style="font-size: 20px">&#11044;</span>
+        <span style="padding-left: 10px; font-size: 20px" *ngIf="currentPoint.signalData">
+            {{currentPoint.signalData.name}}: {{currentPoint.signalData.values}} {{currentPoint.signal.unit}}
+        </span>
+        <span style="padding-left: 10px; font-size: 20px"
+              *ngIf="!currentPoint.signalData">{{currentPoint.signal?.name}}:
+            {{'SIGNAL.Points.NoData' | translate}} </span>
+    </div>
+</div>

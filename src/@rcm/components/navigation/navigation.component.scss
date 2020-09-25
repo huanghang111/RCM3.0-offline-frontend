@@ -1,0 +1,17 @@
+@import 'src/@rcm/scss/fuse';
+
+fuse-navigation {
+    display: flex;
+    flex: 1 0 auto;
+    background-color: #002B49 !important;
+    position: absolute;
+    // display: inline;
+    z-index: 2;
+    width: 100%;
+
+    > .nav {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+}

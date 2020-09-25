@@ -1,0 +1,345 @@
+<div class="dialog-content-wrapper" *ngIf="editSignalForm">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{'CONFIGURATION.Signal.DiaglogEdit.Edit' | translate}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <form [formGroup]="editSignalForm">
+            <div>
+                <div fxFlex=48%>
+                    <div *ngIf="currentSignal.plcId">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.PLCID' | translate}}</mat-label>
+                                <input formControlName="plcId" matInput name="plcId" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.CMD' | translate}}</mat-label>
+                                <input formControlName="cmd" matInput name="cmd" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start" (click)="markFormAsTouched(editSignalForm)">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.ID' | translate}}</mat-label>
+                            <input formControlName="signalId" matInput required>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.SignalName' | translate}}</mat-label>
+                            <input formControlName="signalName" matInput name="signalName" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start" *ngIf="!currentSignal.subDataType">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Type' | translate}}</mat-label>
+                            <!-- <mat-select formControlName="dataType" required>
+                                <mat-option *ngFor="let type of listDataType" [value]="type.name">
+                                    {{type.name}}</mat-option>
+                            </mat-select> -->
+                            <input formControlName="dataType" matInput name="dataType" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start" *ngIf="currentSignal.subDataType">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Type' | translate}}</mat-label>
+                            <input formControlName="subDataType" matInput name="subDataType" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div *ngIf="currentSignal.plcId" fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.MODE' | translate}}</mat-label>
+                            <input formControlName="mode" matInput name="mode">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div fxFlex></div>
+                <div fxFlex=48%>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex *ngIf="!isCatalog">
+                            <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Des' | translate}}</mat-label>
+                            <textarea rows=4 formControlName="description" matInput name="description"></textarea>
+                        </mat-form-field>
+                        <!--Quyen said : there are some errors when using formControl, hence I use ngModel here. Please dont change it-->
+                        <angular-editor [(ngModel)]="htmlContent" [ngModelOptions]="{standalone: true}"
+                                        [config]="config" *ngIf="isCatalog"></angular-editor>
+                    </div>
+
+                    <div *ngIf="currentSignal.plcId">
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.INTERVAL' | translate}}</mat-label>
+                                <input formControlName="interval" matInput name="interval">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.DATASIZE' | translate}}</mat-label>
+                                <input formControlName="dataSize" type="number" matInput name="dataSize" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.DATALEN' | translate}}</mat-label>
+                                <input formControlName="dataLength" type="number" matInput name="dataLength" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TOTALLEN' | translate}}</mat-label>
+                                <input formControlName="totalLength" type="number" matInput name="totalLength" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <ng-container [ngTemplateOutlet]="currentTemplate"></ng-container>
+        </form>
+    </div>
+
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close" color="teriary" mat-raised-button type="button"
+                title="{{'ACTION.Close' | translate}}">{{'ACTION.Close' | translate}}
+        </button>
+        <button (click)="onSave()" [disabled]="!valid && editSignalForm.invalid" aria-label="Save" color="primary"
+                mat-raised-button type="button" title="{{'ACTION.Save' | translate}}">{{'ACTION.Save' | translate}}
+        </button>
+    </div>
+</div>
+<!-- =================================================== NUMERIC ==================================================================== -->
+<ng-template #numericForm>
+    <ng-container>
+        <form [formGroup]="editSignalForm">
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Unit' | translate}}</mat-label>
+                    <input formControlName="unit" matInput name="unit">
+                </mat-form-field>
+            </div>
+            <div *ngIf="isFloat" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Digit' | translate}}</mat-label>
+                    <input formControlName="digit" matInput max="4" min="1" name="digit" type="number">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <span style="padding-top: 20px;">{{'CONFIGURATION.Signal.DiaglogEdit.Threshold' | translate}}</span>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TooLow' | translate}}</mat-label>
+                    <input formControlName="threshTooLow" matInput name="threshTooLow" type="number">
+                </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Low' | translate}}</mat-label>
+                    <input formControlName="threshLow" matInput name="threshLow" type="number">
+                </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.High' | translate}}</mat-label>
+                    <input formControlName="threshHigh" matInput name="threshHigh" type="number">
+                </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TooHigh' | translate}}</mat-label>
+                    <input formControlName="threshTooHigh" matInput name="threshTooHigh" type="number">
+                </mat-form-field>
+                <div *ngIf="inputThresholdError" class="error-mes">{{message}}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                {{'CONFIGURATION.Signal.DiaglogEdit.ErrorMess' | translate}}
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TooLow' | translate}}</mat-label>
+                    <input formControlName="errorTooLow" matInput name="errorTooLow">
+                </mat-form-field>
+                <button (click)="onRelated(THRESHOLD_MIN_MIN)" class="related-data-btn" color="secondary"
+                        mat-raised-button
+                        title="{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}">{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}
+                </button>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Low' | translate}}</mat-label>
+                    <input formControlName="errorLow" matInput name="errorLow">
+                </mat-form-field>
+                <button (click)="onRelated(THRESHOLD_MIN)" class="related-data-btn" color="secondary" mat-raised-button
+                        title="{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}">{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}
+                </button>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.High' | translate}}</mat-label>
+                    <input formControlName="errorHigh" matInput name="errorHigh">
+                </mat-form-field>
+                <button (click)="onRelated(THRESHOLD_MAX)" class="related-data-btn" color="secondary" mat-raised-button
+                        title="{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}">{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}
+                </button>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TooHigh' | translate}}</mat-label>
+                    <input formControlName="errorTooHigh" matInput name="errorTooHigh">
+                </mat-form-field>
+                <button (click)="onRelated(THRESHOLD_MAX_MAX)" class="related-data-btn" color="secondary"
+                        mat-raised-button
+                        title="{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}">{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}
+                </button>
+            </div>
+            <ng-container [ngTemplateOutlet]="upload"></ng-container>
+        </form>
+    </ng-container>
+</ng-template>
+<!-- =================================================== BOOLEAN ==================================================================== -->
+<ng-template #booleanForm>
+    <ng-container>
+        <form [formGroup]="editSignalForm">
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Threshold' | translate}}</mat-label>
+                    <mat-select formControlName="threshold">
+                        <mat-option value="False">False</mat-option>
+                        <mat-option value="True">True</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="col">
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" class="col-sm-auto">
+                        <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.DisTrue' | translate}}</mat-label>
+                        <input formControlName="displayTrue" matInput name="displayTrue">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-sm-auto">
+                        <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.DisFalse' | translate}}</mat-label>
+                        <input formControlName="displayFalse" matInput name="displayFalse">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.ErrorMess' | translate}}</mat-label>
+                    <input formControlName="errorMessage" matInput name="errorMessage">
+                </mat-form-field>
+                <button (click)="onRelated(THRESHOLD_BOOL)" class="related-data-btn" color="secondary" mat-raised-button
+                        title="{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}">{{'CONFIGURATION.Signal.DiaglogEdit.RelatedButton' | translate}}
+                </button>
+            </div>
+            <ng-container [ngTemplateOutlet]="upload"></ng-container>
+        </form>
+    </ng-container>
+</ng-template>
+<!-- ===================================================UPLOAD DOCUMENTS-PICTURE ==================================================================== -->
+<ng-template #upload>
+    <ng-container>
+        <form [formGroup]="editSignalForm">
+            <div fxLayout="row" fxLayoutGap="10px">
+                <div *ngIf="!isCatalog" fxFlex>
+                    <button (click)="inputPicture.click()" class="edit-signal-input-picture" type="button"
+                            title="{{pictureUpload?.name || 'CONFIGURATION.Signal.DiaglogEdit.BrowsePic' | translate}}">{{pictureUpload?.name || 'CONFIGURATION.Signal.DiaglogEdit.BrowsePic' | translate}}</button>
+                    <input #inputPicture (change)="onPictureSelect($event)" accept=".gif,.jpg,.jpeg,.png" hidden
+                           id="file" name="file" type="file"/>
+                    <img *ngIf="pictureSrc" src="{{pictureSrc}}" class="edit-signal-picture">
+                </div>
+                <div *ngIf="isCatalog" formArrayName="links" fxFlex fxLayout="column">
+                    <div>
+                        <mat-icon (click)="addlink()" class="add-document-icon">add_circle_outline</mat-icon>
+                        <span (click)="addlink()"
+                              style="color: #3aa2d0; cursor: pointer;">{{'CONFIGURATION.Signal.DiaglogEdit.LinkAct' | translate}}</span>
+                    </div>
+                    <div *ngFor="let item of links.controls; let i=index" fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Link' | translate}} {{i + 1}}</mat-label>
+                            <input [formControlName]="i" matInput name="i">
+                        </mat-form-field>
+                        <button (click)="removeLink(i)" class="related-data-btn" color="teriary" mat-raised-button
+                                title="{{'ACTION.Remove' | translate}}">
+                            {{'ACTION.Remove' | translate}}
+                        </button>
+                    </div>
+                </div>
+                <div fxFlex>
+                    <mat-icon (click)="inputDocuments.click()" class="add-document-icon">add_circle_outline</mat-icon>
+                    <span (click)="inputDocuments.click()"
+                          style="color: #3aa2d0; cursor: pointer;">{{'CONFIGURATION.Signal.DiaglogEdit.Doc' | translate}}</span>
+                    <input #inputDocuments (change)="onFileSelected($event)" hidden multiple type="file"/>
+                    <ul *ngIf="docUploads.length > 0" class="document-list">
+                        <li *ngFor="let doc of docUploads; let j = index;">
+                            <a (click)="navigateToDownload(doc)" style="word-wrap: break-word; cursor: pointer;"
+                               target="_blank">{{doc.name}}</a>
+                            <mat-icon (click)="removeUploadDoc(j)" class="remove-document-icon">delete</mat-icon>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</ng-template>
+<!-- =================================================== INTENSIVE ==================================================================== -->
+<ng-template #intensiveForm>
+    <ng-container>
+        <form [formGroup]="editSignalForm">
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <span>{{'CONFIGURATION.Signal.DiaglogEdit.Trigger' | translate}}</span>
+                <mat-radio-group (change)="selectTriggerMethod()" class="example-radio-group"
+                                 formControlName="methodTrigger">
+                    <mat-radio-button selected value="MANUAL">{{'CONFIGURATION.Signal.DiaglogEdit.Manual' | translate}}
+                    </mat-radio-button>
+                    <mat-radio-button value="AUTOMATIC">{{'CONFIGURATION.Signal.DiaglogEdit.Automatic' | translate}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                <div *ngIf="!isManual">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-select (selectionChange)="selectTimeTrigger()" formControlName="timeTrigger"
+                                    class="minSelect">
+                            <mat-option value="10 min">10 min</mat-option>
+                            <mat-option value="1 hour">1 hour</mat-option>
+                            <mat-option value="2 hour">2 hours</mat-option>
+                            <mat-option value="1 day">1 day</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="!isOneDay" appearance="outline" fxFlex>
+                        <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Hour' | translate}}</mat-label>
+                        <input formControlName="hour" matInput name="hour" type="number">
+                    </mat-form-field>
+                    <mat-form-field *ngIf="!isOneDay" appearance="outline" fxFlex>
+                        <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Minute' | translate}}</mat-label>
+                        <input formControlName="minute" matInput name="minute" type="number">
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </ng-container>
+</ng-template>
+<!-- =================================================== CATALOG ==================================================================== -->
+<ng-template #catalogForm>
+    <ng-container>
+        <form [formGroup]="editSignalForm">
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Tag' | translate}}</mat-label>
+                    <input formControlName="tag" matInput name="tag">
+                </mat-form-field>
+            </div>
+            <ng-container [ngTemplateOutlet]="upload"></ng-container>
+        </form>
+    </ng-container>
+</ng-template>

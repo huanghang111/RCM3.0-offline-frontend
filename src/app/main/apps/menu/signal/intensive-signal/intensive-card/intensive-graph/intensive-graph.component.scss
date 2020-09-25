@@ -1,0 +1,35 @@
+mat-toolbar {
+  background-color: #002b49 !important;
+}
+
+.filter-area {
+  margin-bottom: 10px;
+}
+
+.app-chart {
+  min-width: 500px;
+  height: 550px;
+}
+
+.custom-fieldset {
+  width: 100%;
+}
+
+.timestamp {
+  width: 290px;
+  height: 300px;
+  margin-left: 1%;
+  .ng-value-container {
+    padding-top: 16px !important;
+    padding-left: 5px !important;
+  }
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected{
+    color: #666;
+  }
+}
+
+.chart-area {
+  padding-right: 2%;
+  padding-left: 1%;
+  width: 850px;
+}

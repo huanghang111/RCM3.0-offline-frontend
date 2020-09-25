@@ -1,0 +1,155 @@
+@import "src/@rcm/scss/fuse";
+
+toolbar {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    z-index: 4;
+
+    &.below {
+        z-index: 2;
+    }
+
+    .mat-toolbar {
+        position: relative;
+        background: inherit !important;
+        color: inherit !important;
+        height: 80px;
+    }
+
+    .logo {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        .logo-icon {
+            width: 170px;
+            height: 48.05px;
+        }
+    }
+
+    .user-button,
+    fuse-search-bar,
+    .language-button,
+    .chat-panel-toggle-button,
+    .quick-panel-toggle-button {
+        min-width: 64px;
+        height: 64px;
+
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+    }
+
+    .lang-button {
+        min-width: 44px;
+        height: 44px;
+
+        @include media-breakpoint('xs') {
+            height: 36px;
+        }
+    }
+
+    .navbar-toggle-button {
+        min-width: 56px;
+        height: 56px;
+    }
+
+    .toolbar-separator {
+        height: 64px;
+        width: 1px;
+
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+    }
+}
+
+.module-button {
+    position: relative;
+    left: 0;
+    top: 0;
+    font-size: 0;
+    line-height: 0;
+    display: inline-block;
+    vertical-align: bottom;
+    overflow: hidden;
+    min-width: 80px;
+}
+
+.btn-navigation {
+    background-color: #df0024;
+    border: 1px solid #df0024;
+    color: #ffffff;
+    cursor: pointer;
+    outline: 0;
+    width: 80px;
+    height: 80px;
+    transition: background 350ms;
+
+    &:hover {
+        background-color: #BD001E;
+
+    }
+}
+
+
+.button-content {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    z-index: 1;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 48px;
+    line-height: 48px;
+    color: #ffffff;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    pointer-events: none;
+    transform: perspective(0) translateZ(0);
+    transition: color 350ms;
+    left: 0;
+
+    .custom-span {
+        background-color: #ffffff;
+        display: block;
+        left: 1.875rem;
+        height: 0.225rem;
+        margin-bottom: 0.3125rem;
+        position: absolute;
+        transition: all 0.35s ease-in-out;
+        width: 4rem;
+
+        &.upper-line {
+            top: 3rem;
+        }
+
+        &.middle-line {
+            top: 4rem;
+        }
+
+        &.bottom-line {
+            top: 5rem;
+        }
+    }
+}
+
+.upper-line-active {
+    transform: rotate(45deg) translateY(1rem) translateX(0.5rem);
+    // width: 5rem;
+}
+
+.middle-line-active {
+    transform: translateX(-15px);
+    opacity: 0;
+}
+
+.bottom-line-active {
+    transform: rotate(-45deg) translateY(-0.75rem) translateX(0.4rem);
+    // width: 5rem;
+}
+

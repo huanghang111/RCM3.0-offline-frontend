@@ -1,0 +1,63 @@
+<div class="dialog-content-wrapper" id="error-history-table">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{data.signalName}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <div fxLayout="column">
+            <table
+                [dataSource]="dataSrc | paginate: { id: 'errorTable', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+                class="mat-elevation-z8"
+                mat-table width="1000px" *ngIf="!loading && totalItems !== 0">
+                <ng-container matColumnDef="name">
+                    <th *matHeaderCellDef mat-header-cell>{{ 'ERROR.HISTORY.TableSignal.NAME' | translate }}</th>
+                    <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="values">
+                    <th *matHeaderCellDef mat-header-cell>{{ 'ERROR.HISTORY.TableSignal.Value' | translate }}</th>
+                    <td *matCellDef="let element" mat-cell> {{element.values}} </td>
+                </ng-container>
+                <ng-container matColumnDef="threshold">
+                    <th *matHeaderCellDef mat-header-cell>{{ 'ERROR.HISTORY.TableSignal.THRESHOLD' | translate }}</th>
+                    <td *matCellDef="let element" mat-cell> {{showThreshold(element.threshold)}}</td>
+                </ng-container>
+                <ng-container matColumnDef="timestamp">
+                    <th *matHeaderCellDef mat-header-cell>{{ 'ERROR.HISTORY.TableSignal.TIMESTAMP' | translate }}</th>
+                    <td *matCellDef="let element" mat-cell> {{convertDate(element.timestamp)}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ack">
+                    <th *matHeaderCellDef mat-header-cell>{{ 'ERROR.HISTORY.TableSignal.ACK' | translate }}</th>
+                    <td *matCellDef="let element" mat-cell> {{element.ack}} </td>
+                </ng-container>
+                <tr *matHeaderRowDef="errorColumn" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: errorColumn;" mat-row></tr>
+            </table>
+            <h1 style="align-self: center;" *ngIf="!loading && totalItems === 0">No data</h1>
+        </div>
+    </div>
+    <div class="rcm-pagination" style="padding:0 20px;" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <span>{{ 'ACTION.RESULTS_PER_PAGE' | translate }}: </span>
+            <ul class="rcm-pagination-list">
+                <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                <li (click)="onItemPerPage(100)" [class.current]="itemsPerPage==100"><a>100</a></li>
+            </ul>
+        </div>
+        <div>
+            <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true"
+                                 [nextLabel]="''" [previousLabel]="''" id="errorTable"></pagination-controls>
+        </div>
+    </div>
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close" color="teriary" mat-raised-button
+                type="button" title="{{'ACTION.Close' | translate}}">{{'ACTION.Close' | translate}}
+        </button>
+    </div>
+</div>

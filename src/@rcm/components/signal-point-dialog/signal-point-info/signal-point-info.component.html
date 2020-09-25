@@ -1,0 +1,164 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{pointData.signal.name}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar fxLayout="row" mat-dialog-content>
+        <div fxLayout="column" style="padding-right: 10px;">
+            <div>
+                <fieldset style="height: 400px;">
+                    <legend>{{'SIGNAL.Points.Info.Description' | translate}}</legend>
+                    <p style="width: 210px; word-wrap:break-word; margin: 0;">{{pointData.signal.descriptions}}</p>
+                </fieldset>
+            </div>
+            <div>
+                <fieldset style="min-height: 133px;">
+                    <legend>{{'SIGNAL.Points.Info.Documents' | translate}}</legend>
+                    <ul style="list-style: none; padding: 0;">
+                        <li *ngFor="let doc of documents">
+                            <a (click)="navigateToDownload(doc)" style="word-wrap: break-word; cursor: pointer;"
+                                target="_blank">{{doc.name}}</a>
+                        </li>
+                    </ul>
+                </fieldset>
+            </div>
+        </div>
+
+        <form [formGroup]="pointDataForm" fxLayout="column" style="min-width: 850px;">
+            <mat-tab-group (selectedTabChange)="onTabChange($event)">
+                <mat-tab label="{{'SIGNAL.Points.Info.Tab.Threshold' | translate}}">
+                    <div *ngIf="isNumeric || isFloat" fxLayout="column">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            {{'CONFIGURATION.Signal.DiaglogEdit.Threshold' | translate}}
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex="24%">
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TooLow' | translate}}</mat-label>
+                                <input readonly formControlName="threshTooLow" matInput name="threshTooLow">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" fxFlex="24%">
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Low' | translate}}</mat-label>
+                                <input readonly formControlName="threshLow" matInput name="threshLow">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" fxFlex="24%">
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.High' | translate}}</mat-label>
+                                <input readonly formControlName="threshHigh" matInput name="threshHigh">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" fxFlex="24%">
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TooHigh' | translate}}</mat-label>
+                                <input readonly formControlName="threshTooHigh" matInput name="threshTooHigh">
+                            </mat-form-field>
+                            <div *ngIf="inputThresholdError">{{message}}</div>
+                        </div>
+                        <div *ngIf="isFloat" fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Digit' | translate}}</mat-label>
+                                <input readonly formControlName="digit" matInput max="4" min="1" name="digit"
+                                    type="number">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            {{'CONFIGURATION.Signal.DiaglogEdit.ErrorMess' | translate}}
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TooLow' | translate}}</mat-label>
+                                <input readonly formControlName="errorTooLow" matInput name="errorTooLow">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Low' | translate}}</mat-label>
+                                <input readonly formControlName="errorLow" matInput name="errorLow">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.High' | translate}}</mat-label>
+                                <input readonly formControlName="errorHigh" matInput name="errorHigh">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.TooHigh' | translate}}</mat-label>
+                                <input readonly formControlName="errorTooHigh" matInput name="errorTooHigh">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div *ngIf="isBoolean">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.Threshold' | translate}}</mat-label>
+                                <mat-select formControlName="threshold">
+                                    <mat-option value="False">False</mat-option>
+                                    <mat-option value="True">True</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="col">
+                            <div fxLayout="row" fxLayoutAlign="start start">
+                                <mat-form-field appearance="outline" class="col-sm-auto">
+                                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.DisTrue' | translate}}
+                                    </mat-label>
+                                    <input readonly formControlName="displayTrue" matInput name="displayTrue">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-sm-auto">
+                                    <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.DisFalse' | translate}}
+                                    </mat-label>
+                                    <input readonly formControlName="displayFalse" matInput name="displayFalse">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>{{'CONFIGURATION.Signal.DiaglogEdit.ErrorMess' | translate}}</mat-label>
+                                <input readonly formControlName="errorMessage" matInput name="errorMessage">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{'SIGNAL.Points.Info.Tab.Pic' | translate}}">
+                    <img src="{{pictureSrc}}" [alt]="'SIGNAL.Points.Info.NoData' | translate"
+                        style="width: 100%; height: inherit;">
+                </mat-tab>
+                <mat-tab fxLayout="column" label="{{'SIGNAL.Points.Info.Tab.His' | translate}}">
+                    <div fxLayout="row" fxLayoutAlign="space-evenly center" style="height: 65px;">
+                        <mat-form-field>
+                            <input (dateInput)="fromDateEvent($event.value)" [matDatepicker]="fromDate"
+                                formControlName='dateFrom' matInput
+                                placeholder="{{'SIGNAL.Points.Info.Tab.From' | translate}}">
+                            <mat-datepicker-toggle [for]="fromDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #fromDate></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input (dateInput)="toDateEvent($event.value)" [matDatepicker]="toDate"
+                                formControlName='dateTo' matInput
+                                placeholder="{{'SIGNAL.Points.Info.Tab.To' | translate}}">
+                            <mat-datepicker-toggle [for]="toDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #toDate></mat-datepicker>
+                        </mat-form-field>
+                        <button (click)="onFilter()" color="primary" mat-raised-button
+                            title="{{'ACTION.Filter' | translate}}">
+                            <mat-icon>filter_list_alt</mat-icon>
+                        </button>
+                    </div>
+                    <div style="display: block; background-color: white;" *ngIf="!loading">
+                        <app-common-chart [chartData]="createChartData()">
+                        </app-common-chart>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+    </div>
+
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close" color="teriary" mat-raised-button type="button"
+            title="{{'ACTION.Close' | translate}}">{{'ACTION.Close' | translate}}
+        </button>
+    </div>
+</div>

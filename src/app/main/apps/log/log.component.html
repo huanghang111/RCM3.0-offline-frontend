@@ -1,0 +1,135 @@
+<div class="page-layout simple page-layout-custom" id="error-history">
+
+    <!-- CONTENT -->
+    <div class="content p-24" fxLayout="column">
+        <!--        Filter panel-->
+        <form [formGroup]="filterForm">
+            <fieldset class="error-history-filter">
+                <legend>{{'LOG.Filterlog' | translate}}</legend>
+                <div fxLayout="row" fxLayoutAlign="space-around center">
+                    <div>
+                        <mat-label>{{'LOG.DateFrom' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input (dateInput)="fromDateEvent($event.value)" [matDatepicker]="fromDate"
+                                   [readonly]="true"
+                                   formControlName='dateFrom' matInput
+                                   placeholder="{{'LOG.DatePlaceholder' | translate}}">
+                            <mat-datepicker-toggle [for]="fromDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #fromDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-label>{{'LOG.DateTo' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input (dateInput)="toDateEvent($event.value)" [matDatepicker]="toDate"
+                                   [readonly]="true"
+                                   formControlName='dateTo' matInput
+                                   placeholder="{{'LOG.DatePlaceholder' | translate}}">
+                            <mat-datepicker-toggle [for]="toDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #toDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-label>{{'LOG.Usertype' | translate}}</mat-label>
+                        <mat-form-field>
+                            <mat-select disableOptionCentering formControlName='userType' matNativeControl
+                                        panelClass="logPanelClass">
+                                <mat-option value="">All</mat-option>
+                                <mat-option *ngFor="let role of roles" value="{{role.key}}">{{role.value}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-label>{{'LOG.Operation' | translate}}</mat-label>
+                        <mat-form-field>
+                            <mat-select disableOptionCentering formControlName='operation' matNativeControl
+                                        panelClass="logPanelClass">
+                                <mat-option value="">{{'LOG.All' | translate}}</mat-option>
+                                <mat-option *ngFor="let item of operations"
+                                            value="{{item.key}}">{{item.value}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-label>{{'LOG.Keywords' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input formControlName='keyword' matInput placeholder="{{'LOG.Search' | translate}}">
+                        </mat-form-field>
+                    </div>
+
+                    <button (click)="onFilter()" color="primary" mat-raised-button
+                            title="{{'ACTION.Filter' | translate}}">
+                        <mat-icon>filter_list_alt</mat-icon>
+                    </button>
+
+                </div>
+            </fieldset>
+        </form>
+        <br/>
+        <!--        Data table of log-->
+        <div class="error-history-result" fxLayout="column">
+            <div *ngIf="isNoData; then showBlank else showData"></div>
+            <ng-template #showBlank>
+                <h1 style="align-self: center;">{{'LOG.NoDataMess' | translate}}</h1>
+            </ng-template>
+            <ng-template #showData>
+                <table
+                    [dataSource]="dataSource | paginate: { id: 'signalTable', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+                    class="mat-elevation-z8" mat-table style="text-align: center" width="100%">
+                    <!--            <ng-container matColumnDef="select">-->
+                    <!--                <th *matHeaderCellDef mat-header-cell style="text-align: center">Index</th>-->
+                    <!--                <td *matCellDef="let element; let i = index" mat-cell style="width: 5%">-->
+                    <!--                    {{absoluteIndex(i+1)}}-->
+                    <!--                </td>-->
+                    <!--            </ng-container>-->
+                    <ng-container matColumnDef="time">
+                        <th *matHeaderCellDef mat-header-cell
+                            style="text-align: center">{{'LOG.Table.Time' | translate}}</th>
+                        <td *matCellDef="let element" mat-cell
+                            style="width: 15%"> {{convertDate(element.createdDate)}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="user">
+                        <th *matHeaderCellDef mat-header-cell
+                            style="text-align: center">{{'LOG.Table.Username' | translate}}</th>
+                        <td *matCellDef="let element" mat-cell style="width: 15%"> {{element.username}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="operation">
+                        <th *matHeaderCellDef mat-header-cell
+                            style="text-align: center">{{'LOG.Table.Operation' | translate}}</th>
+                        <td *matCellDef="let element" mat-cell style="width: 15%"> {{element.operation}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="message">
+                        <th *matHeaderCellDef mat-header-cell
+                            style="text-align: center">{{'LOG.Table.Message' | translate}}</th>
+                        <td *matCellDef="let element" mat-cell> {{element.message}} </td>
+                    </ng-container>
+                    <tr *matHeaderRowDef="logColumn" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: logColumn;" mat-row></tr>
+                </table>
+                <div class="rcm-pagination" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div>
+                        <span>{{ 'ACTION.RESULTS_PER_PAGE' | translate }}: </span>
+                        <ul class="rcm-pagination-list">
+                            <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                            <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                            <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                        </ul>
+                    </div>
+                    <div fxLayout="row">
+                        <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true"
+                                             [nextLabel]="''"
+                                             [previousLabel]="''" id="signalTable"></pagination-controls>
+                        <button (click)="onExport()" [disabled]="isExporting" color="dark" mat-raised-button
+                                style="float:right;" *ngIf="!isNoData"
+                                title="{{'ACTION.Export' | translate}}">{{'ACTION.Export' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+    </div>
+</div>

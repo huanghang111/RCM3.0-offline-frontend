@@ -1,0 +1,39 @@
+.cdk-drag {
+    &.line-historical, &.line-realtime {
+        display: block;
+        width: 900px;
+        height: 600px;
+        background-color: white;
+        padding-top: 10px;
+    }
+
+    &.line-intensive, &.bar-chart {
+        display: block;
+        width: 600px;
+        height: 380px;
+        background-color: white;
+        padding-top: 10px;
+        .intensive-select.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+                background-color: #666;
+        }
+    }
+
+    &.pie-chart {
+        display: block;
+        width: 450px;
+        height: 400px;
+        position: relative;
+
+        .healthy-block {
+            position: absolute;
+            top: 160px;
+            left: 120px;
+            min-width: 210px;
+
+            span {
+                display: table;
+                margin: 0 auto;
+            }
+        }
+    }
+}

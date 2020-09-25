@@ -1,0 +1,12 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary=".boundary-container" style="width: max-content">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <img *ngIf="imgSrc && imgSrc != 'data:image/jpeg;base64,null'" style="width: 1040px; height: 840px;"
+         src="{{imgSrc}}"/>
+</div>

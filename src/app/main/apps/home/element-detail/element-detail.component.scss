@@ -1,0 +1,51 @@
+app-element-detail {
+    .card-custom {
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    .title {
+        max-width: 320px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .container {
+        width: 100%;
+        height: auto;
+    }
+
+    .mat-card-image {
+        height: 200px;
+    }
+
+    .div-image {
+        height: 200px;
+        padding: 20px;
+    }
+
+    .mat-card-image-project {
+        width: 325px;
+        height: 200px;
+        // object-fit: contain;
+    }
+
+    .mat-card-image-doc {
+        width: 325px;
+        height: 203px;
+        // object-fit: contain;
+    }
+
+    .info-project {
+        width: 100%;
+
+        .word-showing {
+            max-width: 320px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}

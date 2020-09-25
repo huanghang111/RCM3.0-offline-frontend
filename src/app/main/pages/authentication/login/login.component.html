@@ -1,0 +1,75 @@
+<div fxLayout="column" id="login">
+    <div class="bg-slide">
+        <!-- DON'T DELETE THIS, THIS CAN BE USED FOR NEXT PHASE, DYNAMIC PICTURE -->
+        <!-- <div class="slider" *ngFor="let img of backgroundImage;">
+            <div class="image-container" [ngStyle]="{'background-image': getBackground(img)}">
+            </div>
+        </div> -->
+        <div class="slider">
+            <div class="image-container" style="background-image:url('/assets/images/backgrounds/Customer_Login1.jpg')">
+            </div>
+        </div>
+        <div class="slider">
+            <div class="image-container" style="background-image:url('/assets/images/backgrounds/Customer_login2.jpg')">
+            </div>
+        </div>
+        <div class="slider">
+            <div class="image-container" style="background-image:url('/assets/images/backgrounds/Customer_login3.jpg')">
+            </div>
+        </div>
+        <div class="slider">
+            <div class="image-container"
+                 style="background-image:url('/assets/images/backgrounds/RCM_Background for Login page.jpg')">
+            </div>
+        </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" id="login-form-wrapper">
+
+        <div [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}" id="login-form">
+
+            <h2 class="title">{{ 'LOGIN.TITLE' | translate }}</h2>
+
+            <form [formGroup]="loginForm" name="loginForm" novalidate>
+
+                <mat-form-field appearance="outline">
+                    <input (keyup)="onInputChange()" formControlName="username" matInput
+                           placeholder="{{ 'LOGIN.USERNAME' | translate}}">
+                    <mat-icon class="secondary-text" matSuffix>person_pin</mat-icon>
+                    <mat-error *ngIf="username.getError('required')">
+                        {{ 'LOGIN.URequired' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="username.getError('minlength')">
+                        {{ 'LOGIN.UMinLength' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="username.getError('maxlength')">
+                        {{ 'LOGIN.UMaxLength' | translate}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <input (keyup)="onInputChange()" formControlName="password" matInput
+                           placeholder="{{ 'LOGIN.PASSWORD' | translate}}" type="password">
+                    <mat-icon class="secondary-text" matSuffix>vpn_key</mat-icon>
+                    <mat-error *ngIf="password.getError('required')">
+                        {{ 'LOGIN.PRequired' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="password.getError('minlength')">
+                        {{ 'LOGIN.PMinLength' | translate}}
+                    </mat-error>
+                    <mat-error *ngIf="password.getError('maxlength')">
+                        {{ 'LOGIN.PMaxLength' | translate}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="credentialsError">{{'LOGIN.UPWrong' | translate}}</mat-error>
+                <button (click)="onLogin()" [disabled]="loginForm.invalid" aria-label="LOG IN" class="login-button"
+                        color="primary" mat-raised-button>
+                    {{ 'LOGIN.LOGIN' | translate}}
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

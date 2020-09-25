@@ -1,0 +1,29 @@
+app-signal-point-info {
+    mat-tab-group {
+        mat-tab-body {
+            width: 850px;
+            height: 485px;
+            padding: 8px;
+
+            &.mat-tab-body-active {
+                background-color: #e5eef2;
+            }
+        }
+
+        .mat-ink-bar {
+            visibility: hidden !important;
+        }
+
+        .mat-form-field {
+            padding-right: 8px !important;
+        }
+
+        .related-data-btn {
+            margin-top: 4px;
+        }
+    }
+
+    mat-toolbar {
+        background-color: #002b49 !important;
+    }
+}

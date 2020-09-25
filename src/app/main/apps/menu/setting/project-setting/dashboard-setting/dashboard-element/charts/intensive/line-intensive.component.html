@@ -1,0 +1,32 @@
+<div [cdkDragDisabled]="mode == 'view'" cdkDrag cdkDragBoundary=".boundary-container" class="line-intensive">
+    <div *ngIf="mode !== 'view'" class="action">
+        <a (click)="removeDashboardElement()" id="remove">
+            <mat-icon>close</mat-icon>
+        </a>
+        <a cdkDragHandle id="drag">
+            <mat-icon>open_with</mat-icon>
+        </a>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly end" fxLayoutGap="10px">
+        <fieldset>
+            <!-- <legend>Date range filter</legend> -->
+            <form [formGroup]="chartForm" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="20px"
+                style="padding-top: 10px;">
+                
+                <ng-select [items]="timestampListBuffer" [virtualScroll]="true" [loading]="listLoading" [multiple]="true"
+                    (scroll)="onScroll($event)" (scrollToEnd)="onScrollToEnd()" (change)="timestampSelectChange($event)"
+                    formControlName="timestamps" bindValue="id" [closeOnSelect]="false" class="intensive-select">
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{standalone: true}"/> {{item}}
+                    </ng-template>
+                </ng-select>
+
+                <button (click)="onFilter()" color="primary" mat-raised-button title="{{'ACTION.Filter' | translate}}">
+                    <mat-icon>filter_list_alt</mat-icon>
+                </button>
+            </form>
+        </fieldset>
+    </div>
+    <echarts *ngIf="!loading" [options]="chartOptions" style="width: 100%; height: 85%; display: block;">
+    </echarts>
+</div>

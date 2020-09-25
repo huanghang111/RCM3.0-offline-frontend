@@ -1,0 +1,13 @@
+<div class="page-layout simple page-layout-custom" id="dashboard-template" fxLayoutAlign="row"
+     fxLayout="center space-evenly" fxGap="10px" style="height: 350px">
+    <mat-card *ngFor="let template of templateArr" class="template-list" (click)="onTemplateClick(template.id)">
+        <mat-card-header>
+            <mat-card-title>{{template.name}}</mat-card-title>
+            <mat-card-subtitle>{{template.tooltip}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <img mat-card-image src="{{template.imgSrc}}"
+                 alt="{{template.name}} image">
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,54 @@
+<mat-card class="card">
+    <mat-card-header class="header">
+
+        <h2 class="title">{{project.name}}</h2>
+        <div class="action">
+            <button [matMenuTriggerFor]="projectMenu" class="button-list" color="dark" mat-raised-button
+                    title="{{ 'ACTION.ACTION' | translate }}">
+                <mat-icon>list</mat-icon>
+            </button>
+            <mat-menu #projectMenu="matMenu" [overlapTrigger]="false">
+                <button (click)="editProject(project)" mat-menu-item title="{{ 'ACTION.Edit' | translate }}">
+                    <mat-icon>edit</mat-icon>
+                    <span>{{ 'ACTION.Edit' | translate }}</span>
+                </button>
+                <button (click)="deleteProject(project.projectId)" mat-menu-item
+                        title="{{ 'ACTION.Remove' | translate }}">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>{{ 'ACTION.Remove' | translate }}</span>
+                </button>
+            </mat-menu>
+        </div>
+
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+        <div class="img-area">
+            <img *ngIf="project.image" class="img-custom" src="data:image/jpeg;base64,{{project.image}}">
+            <img *ngIf="!project.image" class="img-custom"
+                 src="../../../../../../../../assets/images/project/RCM_Project.png">
+        </div>
+        <div class="info-dashboard-area" fxLayout="row">
+            <div class="information">
+                <h4 class="custom-h4">{{project.address}}</h4>
+                <h4 class="custom-h4">{{project.time | date:'MM/dd/yyyy HH:mm:ss'}}</h4>
+            </div>
+            <div class="dashboard-area">
+                <button (click)="navigate()" class="dashboard-button" color="teriary" mat-raised-button
+                        title="{{'PROJECT.Dashboard.EditDash' | translate}}">
+                    <mat-icon>insert_chart</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </mat-card-content>
+    <!-- <hr> -->
+    <!-- <mat-card-actions>
+        <div class="button-area">
+            <button mat-button (click)="deleteProject(project.projectId)" class="button-delete" mat-raised-button
+                color="teriary">DELETE</button>
+            <button mat-button (click)="editProject(project)" class="button-edit" mat-raised-button
+                color="secondary">EDIT</button>
+        </div>
+    </mat-card-actions> -->
+</mat-card>

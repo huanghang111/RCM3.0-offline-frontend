@@ -1,0 +1,57 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <div fxLayout="column">
+            <mat-card *ngFor="let step of diagnoseSteps; let i = index;" class="custom-mat-card">
+                <mat-card-header>
+                    <h2 class="title">{{'CONFIGURATION.Diagnose.StepForm.Step' | translate}} {{i + 1}}</h2>
+                    <div class="action">
+                        <button [matMenuTriggerFor]="diagnoseStepsMenu" class="button-list" color="dark"
+                                mat-raised-button>
+                            <mat-icon>list</mat-icon>
+                        </button>
+                        <mat-menu #diagnoseStepsMenu="matMenu" [overlapTrigger]="false">
+                            <button (click)="editStep('edit', step)" mat-menu-item>
+                                <mat-icon>edit</mat-icon>
+                                <span>{{'ACTION.Edit' | translate}}</span>
+                            </button>
+                            <button (click)="deleteStep(step.id)" mat-menu-item>
+                                <mat-icon>delete_forever</mat-icon>
+                                <span>{{'ACTION.Remove' | translate}}</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="info-dashboard-area" fxLayout="row">
+                        <div class="information">
+                            <h4 class="custom-h4">{{step.description}}</h4>
+                        </div>
+                    </div>
+                    <div *ngFor="let picture of step.diagnosePictures">
+                        <div class="content">
+                            <img class="img-screenshot" src="data:image/jpeg;base64,{{picture.contentBin}}"/>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <mat-card class="custom-mat-card">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button (click)="editStep('add', null)" color="light" mat-raised-button
+                        title="{{'ACTION.Add' | translate}}">
+                    <mat-icon>add_box</mat-icon>
+                </button>
+            </div>
+        </mat-card>
+    </div>
+</div>

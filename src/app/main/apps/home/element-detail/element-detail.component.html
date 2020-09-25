@@ -1,0 +1,54 @@
+<ng-container *ngTemplateOutlet="PROJECT_ITEM"></ng-container>
+<ng-container *ngTemplateOutlet="DOCUMENT_ITEM"></ng-container>
+
+<ng-template #PROJECT_ITEM>
+    <ng-container *ngIf="isProject">
+        <mat-card (click)="navigateToProject()" class="card-custom">
+            <mat-card-header>
+                <h2 class="title">{{project.name}}</h2>
+            </mat-card-header>
+            <hr>
+            <mat-card-content class="container">
+                <div class="div-image">
+                    <img *ngIf="project.image" class="mat-card-image-project" mat-card-image
+                         src="data:image/jpeg;base64,{{project.image}}">
+                    <img *ngIf="!project.image" class="mat-card-image-project"
+                         mat-card-image src="../../../../../../../../assets/images/project/RCM_Project.png">
+                </div>
+                <div class="info-project">
+                    <p class="word-showing">{{ 'PROJECT.ECForm.Address' | translate }}: {{project.address}}</p>
+                    <p class="word-showing">{{ 'PROJECT.ECForm.Valid' | translate }}
+                        : {{project.time | date:'MM/dd/yyyy HH:mm:ss'}}</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</ng-template>
+
+<ng-template #DOCUMENT_ITEM>
+    <ng-container *ngIf="!isProject">
+        <mat-card class="card-custom">
+            <mat-card-header>
+                <h2 class="title">{{document.title}}</h2>
+            </mat-card-header>
+            <mat-card-content class="container">
+                <div class="div-image">
+                    <a (click)="navigateToDownload(document.document)" *ngIf="hasDocument">
+                        <img *ngIf="document.image" class="mat-card-image-doc" mat-card-image
+                             src="data:image/jpeg;base64,{{document.image}}">
+                        <img *ngIf="!document.image" class="mat-card-image-doc"
+                             mat-card-image
+                             src="../../../../../../../../assets/images/project/RCM_Project.png">
+                    </a>
+                    <div *ngIf="!hasDocument">
+                        <img *ngIf="document.image" class="mat-card-image-doc" mat-card-image
+                             src="data:image/jpeg;base64,{{document.image}}">
+                        <img *ngIf="!document.image" class="mat-card-image-doc"
+                             mat-card-image
+                             src="../../../../../../../../assets/images/project/RCM_Project.png">
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</ng-template>

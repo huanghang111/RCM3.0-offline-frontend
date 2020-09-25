@@ -1,0 +1,79 @@
+<div class="dialog-content-wrapper" id="document-edit-create-form">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <form [formGroup]="documentForm">
+            <div>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>{{ 'DOCUMENT.Form.Title' | translate }}</mat-label>
+                        <input formControlName="title" matInput name="title" required>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <label class="custom-label">{{ 'DOCUMENT.Form.UploadDocs' | translate }} <label
+                        class="required">*</label></label>
+                    <div class="component-file-selector show-file-name " data-plugin="moduleFileSelector">
+                        <div class="file-selector-wrapper">
+                            <button (click)="inputFile.click()" class="button-custom-doc" color="light"
+                                    mat-raised-button
+                                    type="button" title="{{'DOCUMENT.Form.UploadDocs' | translate}}">
+                                <mat-icon>cloud_upload</mat-icon>
+                            </button>
+                            <input #inputFile (change)="onFileSelect($event)" hidden id="document" name="document"
+                                   type="file"/>
+                            <div [ngClass]="{'file-active': isShowed}" class="file-name-container">
+                                <span class="file-name">{{fileName}}</span>
+                            </div>
+                            <a (click)="navigateToDownload(documentReceive)">{{ documentReceive.name }}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <label class="custom-label">{{ 'DOCUMENT.Form.Image' | translate }}</label>
+                    <div class="component-file-selector show-file-name " data-plugin="moduleFileSelector"
+                         fxLayout="column">
+                        <div class="file-selector-wrapper">
+                            <button (click)="inputPicture.click()" class="button-custom-browse" color="light"
+                                    mat-raised-button
+                                    type="button"
+                                    title="{{pictureUpload?.name || 'PROJECT.ECForm.Browse' | translate}}">{{pictureUpload?.name || 'PROJECT.ECForm.Browse' | translate}}
+                            </button>
+                            <input #inputPicture (change)="onPictureSelect($event)" accept=".gif,.jpg,.jpeg,.png"
+                                   formControlName="image" hidden
+                                   id="file" name="file" type="file"/>&nbsp;
+                            <img *ngIf="pictureSrc != 'data:image/jpeg;base64,null'" src="{{pictureSrc}}"
+                                 class="img-area">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close dialog" class="mr-8" color="teriary" mat-raised-button
+                title="{{ 'ACTION.Close' | translate }}">
+            {{ 'ACTION.Close' | translate }}
+        </button>
+        <button (click)="ngAction()" *ngIf="action !== 'edit'" [disabled]="documentForm.invalid" aria-label="CREATE"
+                class="save-button"
+                color="primary" mat-raised-button title="{{ 'ACTION.Create' | translate }}">
+            {{ 'ACTION.Create' | translate }}
+        </button>
+        <button (click)="ngAction()" *ngIf="action === 'edit'" [disabled]="documentForm.invalid" aria-label="SAVE"
+                class="save-button"
+                color="primary" mat-raised-button title="{{ 'ACTION.Save' | translate }}">
+            {{ 'ACTION.Save' | translate }}
+        </button>
+    </div>
+</div>

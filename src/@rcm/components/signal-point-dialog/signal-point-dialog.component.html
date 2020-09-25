@@ -1,0 +1,75 @@
+<div class="box status" [style.background]="getColor(_data.danger)" *ngIf="_data && _data.signal">
+    <!-- Boolean -->
+    <div class="scale" *ngIf="(_data.danger || _realTimeData) && _data.signal.dataType.name == 'BOOL'">
+        <svg width="14" [attr.height]="85" style="display: inline;">
+            <g transform="translate(0,85)">
+                <g class="valgroup" style="fill: rgb(65, 166, 42); stroke: rgb(45, 116, 29);">
+                    <rect x="0" [attr.y]="y1" [attr.height]="h1" width="4"></rect>
+                </g>
+                <g class="valgroup" style="fill: rgb(223, 0, 36); stroke: rgb(156, 0, 25);">
+                    <rect x="0" [attr.y]="y2" [attr.height]="h2" width="4"></rect>
+                </g>
+                <path class="triangle"
+                      d="M0,-5.26429605180997L6.078685485212741,5.26429605180997 -6.078685485212741,5.26429605180997Z"
+                      [attr.transform]="triangleY" [style.fill]="triangleColor"></path>
+            </g>
+        </svg>
+    </div>
+    <!-- Int, float -->
+    <div class="scale" *ngIf="(_data.danger || _realTimeData) && _data.signal.dataType.name != 'BOOL'">
+        <svg width="14" [attr.height]="85" style="display: inline;">
+            <g transform="translate(0,85)">
+                <g class="valgroup" style="fill: rgb(223, 0, 36); stroke: rgb(156, 0, 25);">
+                    <rect x="0" [attr.y]="y1" [attr.height]="h1" width="4"></rect>
+                </g>
+                <g class="valgroup" style="fill: rgb(245, 121, 0); stroke: rgb(171, 84, 0);">
+                    <rect x="0" [attr.y]="y2" [attr.height]="h2" width="4"></rect>
+                </g>
+                <g class="valgroup" style="fill: rgb(65, 166, 42); stroke: rgb(45, 116, 29);">
+                    <rect x="0" [attr.y]="y3" [attr.height]="h3" width="4"></rect>
+                </g>
+                <g class="valgroup" style="fill: rgb(245, 121, 0); stroke: rgb(171, 84, 0);">
+                    <rect x="0" [attr.y]="y4" [attr.height]="h4" width="4"></rect>
+                </g>
+                <g class="valgroup" style="fill: rgb(223, 0, 36); stroke: rgb(156, 0, 25);">
+                    <rect x="0" [attr.y]="y5" [attr.height]="h5" width="4"></rect>
+                </g>
+                <path class="triangle"
+                      d="M0,-5.26429605180997L6.078685485212741,5.26429605180997 -6.078685485212741,5.26429605180997Z"
+                      [attr.transform]="triangleY" [style.fill]="triangleColor"></path>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Null Signalpoint -->
+    <div class="scale" *ngIf="!_data.danger && !_realTimeData">
+    </div>
+
+    <span class="label signal-name" title="{{_data.signal.name}}"
+          [ngClass]="{'color-followed': _data.danger != 3}">{{_data.signal.name}}</span>
+    <span *ngIf="_data.signalData" class="value" [ngClass]="{'color-followed': _data.danger != 3}">
+        {{_data.signalData.values}} {{_data.signal.unit}}&nbsp;
+    </span>
+    <span *ngIf="!_data.signalData" class="value" [ngClass]="{'color-followed': _data.danger != 3}">
+        {{'SIGNAL.Points.NoData' | translate}}&nbsp;
+    </span>
+    <div class="infoBox">
+        <button (click)="showPointInfo()" class="info-button" color="teriary" mat-raised-button
+                title="{{'SIGNAL.Points.Info.Info' | translate}}">
+            <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg"
+                 x="0px" y="0px" width="32px" height="32px"
+                 viewBox="0 0 38 38" enable-background="new 0 0 38 38" xml:space="preserve">
+                <g>
+                    <path fill="#FFFFFF" d="M20.101,27.731h5.358c0.435,0,0.754,0.092,0.96,0.275c0.206,0.184,0.31,0.476,0.31,0.876
+                   c0,0.457-0.098,0.771-0.293,0.943c-0.194,0.173-0.554,0.259-1.076,0.259H12.405c-0.445,0-0.779-0.1-1.002-0.3
+                   c-0.223-0.201-0.334-0.501-0.334-0.902c0-0.389,0.117-0.679,0.351-0.868c0.234-0.189,0.584-0.284,1.052-0.284h5.092V17.031h-3.255
+                   c-0.457,0-0.804-0.103-1.043-0.309c-0.239-0.206-0.359-0.503-0.359-0.893c0-0.389,0.111-0.682,0.334-0.876
+                   c0.223-0.194,0.557-0.292,1.001-0.292h4.892c0.3,0,0.537,0.062,0.709,0.184c0.172,0.123,0.259,0.29,0.259,0.501V27.731z
+                    M17.012,9.852c0-1.202,0.108-1.958,0.326-2.27c0.217-0.312,0.681-0.468,1.394-0.468c0.69,0,1.146,0.131,1.369,0.393
+                   c0.223,0.262,0.334,0.882,0.334,1.861c0,0.958-0.103,1.55-0.309,1.778c-0.206,0.229-0.67,0.342-1.394,0.342
+                   c-0.712,0-1.177-0.105-1.394-0.317C17.121,10.96,17.012,10.52,17.012,9.852z"/>
+                </g>
+            </svg>
+        </button>
+    </div>
+</div>

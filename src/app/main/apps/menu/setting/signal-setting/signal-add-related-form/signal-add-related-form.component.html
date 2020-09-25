@@ -1,0 +1,113 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0" matDialogTitle>
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button (click)="matDialogRef.close()" aria-label="Close dialog" mat-icon-button matDialogClose>
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+        <form [formGroup]="signalRelatedForm">
+            <div fxFlex="45%">
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <h3 class="title">Intensive signal</h3>
+                    <button (click)="addNext()" *ngIf="isShowIntensive" color="light" mat-icon-button mat-raised-button
+                            title="{{'ACTION.Add' | translate}}">
+                        <mat-icon>add_box</mat-icon>
+                    </button>
+                </div>
+                <div *ngFor="let item of signalRelatedForm.controls['intensiveSignal'].controls; let i = index"
+                     class="form-area" formArrayName="intensiveSignal">
+                    <div [formGroupName]="i">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Select intensive signal</mat-label>
+                                <mat-select formControlName="signalId">
+                                    <mat-option *ngFor="let intensive of listIntensiveSignal" [value]="intensive">
+                                        {{intensive}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Time</mat-label>
+                                <mat-select formControlName="timing">
+                                    <mat-option *ngFor="let time of timeSelection" [value]="time.value">{{time.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="paddingBetweenItem" fxLayout="row" fxLayoutAlign="end start">
+                            <button (click)="removeIntensiveSignal(i)" color="primary" mat-icon-button mat-raised-button
+                                    type="button" title="{{'ACTION.Delete' | translate}}">
+                                <mat-icon>delete</mat-icon>
+                            </button>&nbsp;
+                            <button (click)="addNext()" color="light" mat-icon-button mat-raised-button
+                                    title="{{'ACTION.Add' | translate}}">
+                                <mat-icon>add_box</mat-icon>
+                            </button>
+                            <!-- <button mat-raised-button color="dark" (click)="addNext()">Add Next</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex></div>
+            <div fxFlex="45%">
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <h3 class="title">Signal Point</h3>
+                    <button (click)="addNextPointSignal()" *ngIf="isShowPoint" color="light" mat-icon-button
+                            mat-raised-button title="{{'ACTION.Add' | translate}}">
+                        <mat-icon>add_box</mat-icon>
+                    </button>
+                </div>
+
+                <div *ngFor="let item of signalRelatedForm.controls['pointSignal'].controls; let j = index"
+                     class="form-area" formArrayName="pointSignal">
+                    <div [formGroupName]="j">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Select signal</mat-label>
+                                <mat-select formControlName="signalId">
+                                    <mat-option *ngFor="let point of listPointSignal" [value]="point">{{point}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Time</mat-label>
+                                <mat-select formControlName="timing">
+                                    <mat-option *ngFor="let time of timeSelection" [value]="time.value">{{time.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="paddingBetweenItem" fxLayout="row" fxLayoutAlign="end start">
+                            <button (click)="removePointSignal(j)" color="primary" mat-icon-button mat-raised-button
+                                    type="button" title="{{'ACTION.Delete' | translate}}">
+                                <mat-icon>delete</mat-icon>
+                            </button>&nbsp;
+                            <button (click)="addNextPointSignal()" color="light" mat-icon-button mat-raised-button
+                                    title="{{'ACTION.Add' | translate}}">
+                                <mat-icon>add_box</mat-icon>
+                            </button>
+                            <!-- <button mat-raised-button color="teriary" (click)="addNextPointSignal()">Add Next</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+        <button (click)="matDialogRef.close()" aria-label="Close dialog" color="teriary" mat-raised-button
+                title="{{'ACTION.Close' | translate}}">{{'ACTION.Close' | translate}}
+        </button>
+        <button (click)="onSave()" [disabled]="signalRelatedForm.invalid || isDisabled" aria-label="SAVE"
+                class="save-button" color="primary" mat-raised-button
+                title="{{'ACTION.Save' | translate}}">{{'ACTION.Save' | translate}}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="page-layout simple page-layout-custom" id="diagnose-detail">
+    <!-- CONTENT -->
+    <div class="content p-24" fxLayout="column">
+
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="start center" class="row-button">
+                <div class="back-btn-area">
+                    <button (click)="onBack()" class="action-btn" color="light" mat-raised-button type="button"
+                            title="{{'ACTION.Back' | translate}}">{{'ACTION.Back' | translate}}
+                    </button>
+                </div>
+                <div class="del-btn-area">
+                    <button (click)="onDelete()" class="action-btn" color="teriary" mat-raised-button type="button"
+                            title="{{'ACTION.Delete' | translate}}">{{'ACTION.Delete' | translate}}
+                    </button>
+                </div>
+
+            </div>
+            <!-- <div class="select-all">
+                <mat-checkbox (change)="onCheckAll($event)" [(ngModel)]="checkedAll">{{selectAllText}}all
+                </mat-checkbox>
+            </div> -->
+            <table
+                [dataSource]="dataSrc | paginate: { id: 'detailTable', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }"
+                class="mat-elevation-z8" mat-table width="100%">
+                <ng-container matColumnDef="check">
+                    <th *matHeaderCellDef mat-header-cell>
+                        <mat-checkbox (change)="onCheckAll($event)" [(ngModel)]="checkedAll">
+                        </mat-checkbox>
+                    </th>
+                    <td *matCellDef="let element; let i = index" mat-cell>
+                        <mat-checkbox (change)="onCheckItem($event, i)" [(ngModel)]="checkedItem[i].checked">
+                        </mat-checkbox>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="timestamp">
+                    <th *matHeaderCellDef mat-header-cell>{{'DIAGNOSE.Detail.Table.TIME' | translate}}</th>
+                    <td *matCellDef="let element" mat-cell>{{convertDate(element.error.timestamp)}}</td>
+                </ng-container>
+                <ng-container matColumnDef="measurement">
+                    <th *matHeaderCellDef mat-header-cell>{{'DIAGNOSE.Detail.Table.MEASUREMENT' | translate}}</th>
+                    <td *matCellDef="let element" mat-cell>
+                        <button (click)="onDiagnose(element.error.name, element.error.timestamp)" class="action-btn"
+                                color="secondary" mat-raised-button type="button"
+                                title="{{'ACTION.Diagnose' | translate}}">{{'ACTION.Diagnose' | translate}}
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="related">
+                    <th *matHeaderCellDef mat-header-cell>{{'DIAGNOSE.Detail.Table.RELATED' | translate}}</th>
+                    <td *matCellDef="let element" mat-cell>
+                        <button (click)="onRelated(element.error)" class="action-btn" color="secondary"
+                                mat-raised-button type="button"
+                                title="{{'DIAGNOSE.Detail.Table.RELATED' | translate}}">{{'DIAGNOSE.Detail.Table.RELATED' | translate}}
+                        </button>
+                    </td>
+                </ng-container>
+                <tr *matHeaderRowDef="detailColumns" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: detailColumns;" mat-row></tr>
+            </table>
+
+            <div class="rcm-pagination" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <span>RESULTS PER PAGE: </span>
+                    <ul class="rcm-pagination-list">
+                        <li (click)="onItemPerPage(10)" [class.current]="itemsPerPage==10"><a>10</a></li>
+                        <li (click)="onItemPerPage(25)" [class.current]="itemsPerPage==25"><a>25</a></li>
+                        <li (click)="onItemPerPage(50)" [class.current]="itemsPerPage==50"><a>50</a></li>
+                        <li (click)="onItemPerPage(100)" [class.current]="itemsPerPage==100"><a>100</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <pagination-controls (pageChange)="onPageChange($event)" [directionLinks]="true" [nextLabel]="''"
+                                         [previousLabel]="''" id="detailTable"></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

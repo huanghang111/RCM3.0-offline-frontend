@@ -1,0 +1,74 @@
+<mat-card *ngIf="currentCata"
+          style="min-width: 600px; padding-top: 35px; padding-left: 35px; height: auto; box-shadow: none">
+    <mat-card-header>
+        <mat-card-title>{{currentCata.name}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="padding: 0 30px; ">
+
+        <div class="p-24 pb-0 m-0" fusePerfectScrollbar mat-dialog-content>
+            <form [formGroup]="catalogForm">
+                <table class="catalog-info">
+                    <tr>
+                        <td class="catalog-info-name">{{'PROJECT.Dashboard.Elements.Catalog.CatalogName' | translate}}
+                        </td>
+                        <td style="padding-left: 8px">
+                            <mat-form-field appearance="outline">
+                                <input formControlName="name" matInput placeholder="Catalog name" readonly>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="catalog-info-name">{{'PROJECT.Dashboard.Elements.Catalog.CatalogDes' | translate}}
+                        </td>
+                        <td>
+                            <!-- <mat-form-field appearance="outline">
+                                        <input formControlName="desc" matInput placeholder="Description" readonly>
+                                    </mat-form-field> -->
+                            <div [innerHTML]="form.desc.value">
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="catalog-info-name">{{'PROJECT.Dashboard.Elements.Catalog.CatalogTag' | translate}}
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <input formControlName="tag" matInput placeholder="Tag" readonly>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="catalog-info-name">{{'PROJECT.Dashboard.Elements.Catalog.CatalogDocs' | translate}}
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let doc of currentCata.documents">
+                        <td></td>
+                        <td>
+                            <a (click)="navigateToDownload(doc)" target="_blank"
+                               style="word-wrap: break-word; cursor: pointer;">{{doc.name}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="catalog-info-name">{{'PROJECT.Dashboard.Elements.Catalog.Link' | translate}}</td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let link of currentCata.links;">
+                        <td></td>
+                        <td>
+                            <a href="{{link.values.includes('://')?link.values:'//' + link.values}}"
+                               target="_blank">{{link.values}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <button (click)="matDialogRef.close()" color="light" mat-raised-button
+                style="float: right; margin:0 20px 10px 0;" type="button">{{'ACTION.Close' | translate}}
+        </button>
+    </mat-card-actions>
+</mat-card>
